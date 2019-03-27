@@ -11,6 +11,7 @@ import { AuthService } from './_services/auth.service';
 import { HomeComponent } from './home/home.component';
 import { RegisterComponent } from './register/register.component';
 import { HomeDefinitionComponent } from './home/home-definition/home-definition.component';
+import { ErrorInterceptorProvider } from './_services/error.interceptor';
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import { HomeDefinitionComponent } from './home/home-definition/home-definition.
       FormsModule
    ],
    providers: [
-      AuthService
+      AuthService,
+      ErrorInterceptorProvider
    ],
    bootstrap: [
       AppComponent

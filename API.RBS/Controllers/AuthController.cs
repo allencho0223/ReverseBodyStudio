@@ -35,7 +35,7 @@ namespace API.RBS.Controllers
             userForRegisterDto.UserName = userForRegisterDto.UserName.ToLower();
 
             if (await _repo.UserExists(userForRegisterDto.UserName))
-                return BadRequest("Username already exists");
+                return BadRequest("이미 사용중인 아이디입니다.");
 
             var userToCreate = new User
             {
@@ -56,7 +56,7 @@ namespace API.RBS.Controllers
 
             if (userFromRepo == null)
                 return Unauthorized();
-            
+
             // Building up the token containing 2 claims
             var claims = new[]
             {
@@ -64,7 +64,7 @@ namespace API.RBS.Controllers
                 new Claim(ClaimTypes.NameIdentifier, userFromRepo.Id.ToString()),
                 new Claim(ClaimTypes.Name, userFromRepo.UserName)
             };
-            
+
             // Creating a security key and we're using this key as part of the signing credentials
             var key = new SymmetricSecurityKey(Encoding.UTF8
                 .GetBytes(_config.GetSection("AppSettings:Token").Value));
@@ -87,9 +87,11 @@ namespace API.RBS.Controllers
             var token = tokenHandler.CreateToken(tokenDescriptor);
 
             // Write a token into a response that we send back to our clients.
-            return Ok(new {
+            return Ok(new
+            {
                 token = tokenHandler.WriteToken(token)
             });
+
         }
     }
 }

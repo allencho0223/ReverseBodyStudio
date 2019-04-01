@@ -1,4 +1,72 @@
 /* You can add global styles to this file, and also import other style files */
 @import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 @import '../node_modules/font-awesome/css/font-awesome.min.css';
-@import '../node_modules/bootswatch/dist/cerulean/bootstrap.min.css';
+@import '../node_modules/alertifyjs/build/css/alertify.min.css';
+@import '../node_modules/alertifyjs/build/css/themes/bootstrap.min.css';
+@import '../node_modules/bootswatch/dist/cyborg/bootstrap.min.css';
+
+body {
+    /* position: relative;
+    margin: 0;
+    padding: 0; */
+    background: linear-gradient( rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3) ), url("assets/img/bg/cycling.jpg") bottom   left no-repeat, #000;
+    background-size: 70%;
+    background-attachment: fixed;
+    font-family: sans-serif;
+}
+
+/* Ng Bootstrap carousel fade in and out effect */
+/* ngb-carousel {
+    width: inherit;
+    height: inherit;
+}
+
+.carousel-inner {
+    overflow: visible;
+}
+
+.carousel-item {
+    display: flex !important;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 1.2s ease-in-out, visibility 1.2s;
+    z-index: -1;
+    position: absolute;
+}
+
+.carousel-item.active{
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 1.2s ease-in-out, visibility 1.2s;
+    z-index: 10;
+}
+
+.carousel-control-prev {
+     z-index: 20;
+}
+
+
+.carousel-control-next {
+     z-index: 20;
+}
+
+.carousel-indicators{
+    z-index: 20;
+} */
+
+.heading-font {
+    color: #fff;
+    font-size: 45px;
+    border-bottom: 5px solid #fff;
+    margin-bottom: 20px;
+}
+
+.subheading-font {
+    color: #fff;
+    font-size: 28px;
+}
+
+.content-font { 
+    color: #fff;
+    font-size: 20px;
+}

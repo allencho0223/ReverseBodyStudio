@@ -1,0 +1,51 @@
+<div class="container">
+    <div class="row">
+        <div class="col-lg-6 offset-lg-6">
+            <p class="heading-font">Instructors</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6 offset-lg-6 instructor-wrapper">
+
+            <div class="image-frame" *ngFor="let instructor of instructors">
+                <img *ngIf="instructor.type.includes('Profile')" class="profile-bg" src="../../../{{ instructor.src.split(',')[2] }}" alt="{{ instructor.name }}">
+                <div class="profile-body">
+                    <p class="instructor-name subheading-font">{{ instructor.name }}</p>
+                    <ul class="instructor-exp">
+                        <li>
+                            <p class="content-font">I am a boy</p>
+                        </li>
+                        <li>
+                            <p class="content-font">I am a boy</p>
+                        </li>
+                        <li>
+                            <p class="content-font">I am a boy</p>
+                        </li>
+                        <li>
+                            <p class="content-font">I am a boy</p>
+                        </li>
+                        <li>
+                            <p class="content-font">I am a boy</p>
+                        </li>
+                    </ul>
+                </div>
+                <a (click)="openModal(instructorTemplate)">
+                    <img class="profile-thumbnail" src="../../../{{ instructor.src.split(',')[1] }}" alt="{{ instructor.name }}'s Thumbnail">
+                </a>
+                <ng-template #instructorTemplate>
+                    <div class="modal-header ">
+                        <h4 class="modal-title pull-left">{{ instructor.name }}'s Profile</h4>
+                        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <img src="../../../{{ instructor.src.split(',')[0] }}" alt="{{ instructor.name }}'s Profile" width="770" height="770">
+                    </div>
+                </ng-template>
+
+            </div>
+        </div>
+
+    </div>
+</div>

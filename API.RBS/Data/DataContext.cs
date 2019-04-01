@@ -12,5 +12,6 @@ namespace API.RBS.Data
         public DbSet<Programme> Programmes { get; set; }
         public DbSet<Symptom> Symptoms { get; set; }
         public DbSet<Experience> Experiences { get; set; }
+        public DbSet<Image> Images { get; set; }
     }
 }

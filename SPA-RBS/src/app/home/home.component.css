@@ -1,84 +1,110 @@
+.main-hash {
+    /* color: #fff; */
+    font-family: sans-serif;
+    overflow: hidden; /* Ensures the content is not revealed until the animation */
+    /* font-size: 45px; */
+    /* The typwriter cursor */
+    /* border-right: .1em solid white;  */
+    color: #fff;
+    font-size: 45px;
 
-img {
-    max-width: 100%;
-    filter: brightness(30%);
+    white-space: nowrap; /* Keeps the content on a single line */
+
+    /* Gives that scrolling effect as the typing happens */
+    /* margin: 0 auto;  */
+    letter-spacing: .05em; /* Adjust as needed */
+    animation: 
+      typing 3.5s steps(100, end),
+      blink-caret 1.5s step-end infinite;
+}
+
+.main-font {
+    color: #fff;
+    font-size: 45px;
+}
+
+@keyframes typing {
+    from { width: 0 }
+    to { width: 100% }
   }
-  
-  .container {
-    height:100%;
-    overflow: hidden;
+
+  @keyframes blink-caret {
+    from, to { border-color: transparent }
+    50% { border-color: white }
   }
-  
-  .img-container {
-    position: absolute;
-    left: 0;
+
+.logo-animation {
+    /* animation name, time being displayed, delay */
+    animation: logo-fade-in 3.5s 3.8s forwards;
+    visibility: hidden;
     opacity: 0;
-    height: auto !important;
-    background-size: cover;
-    background-position: center;
-    will-change: opacity;
-    transition: opacity .3s;
-    cursor: pointer;
-  }
-  
-  
-  
-  .slide-button:hover, .slide-button-select {
-    width: 64px !important;
-    background-color: rgba(255,255,255,1) !important;
-    pointer-events: none;
-    transition: background-color .4s, width 4s cubic-bezier(0.190, 1.000, 0.220, 1.000) !important;
-  }
-  
-  
-  .slide-button {
-    width: 30px;
-    height: 4px;
-    background-color: rgba(255,255,255,.5);
-    cursor: pointer;
-    position: absolute;
-  
-  }
-  
-  .slider {
-    position: absolute;
-    top: 50%;
-    right: 80px;
-    opacity: 1;
-    min-width: 30px;
-  
-  }
-  
-  .slide-button-parent-container {
-    position: relative;
-    margin: 22px 0;
-    min-height: 4px;
-  }
-  
-  .select-box {
-    min-height: 10px;
-  }
-  
-  .text-container {
-  
-    height: 100vh;
-    justify-content: center;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-  }
-  
-  .page-text {
-    min-height: 373px;
-    width: 50%;
-    height: 100%;
-    opacity: 0;
-    font-weight: 300;
-    font-size: 90px;
-    color: white;
-  }
-  
-  .selected {
-    opacity: 1;
     transition: 1s;
-  }
+}
+
+@keyframes logo-fade-in {
+    to {
+        opacity: 1;
+        visibility: visible;
+    }
+}
+
+@media screen and (max-width: 422px) {
+    .main-hash {
+        font-size: 20px;
+    }
+    img.logo_fade {
+        width: 100px;
+        height: 100px;
+    }
+    .rbs-fade {
+        font-size: 20px;
+    }
+}
+
+@media screen and (min-width: 422px) {
+    .main-hash {
+        font-size: 25px;
+    }
+    img.logo_fade {
+        width: 135px;
+        height: 135px;
+    }
+    .rbs-fade {
+        font-size: 25px;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .main-hash {
+        font-size: 30px;
+    }
+    img.logo_fade {
+        width: 150px;
+        height: 150px;
+    }
+    .rbs-fade {
+        font-size: 30px;
+    }
+}
+
+@media screen and (min-width: 992px) {
+    .main-hash {
+        font-size: 35px;
+    }
+    img.logo_fade {
+        width: 150px;
+        height: 150px;
+    }
+    .rbs-fade {
+        font-size: 35px;
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    .main-hash {
+        font-size: 45px;
+    }
+    .rbs-fade {
+        font-size: 45px;
+    }
+}

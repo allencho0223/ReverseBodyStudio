@@ -1,0 +1,29 @@
+<div class="container">
+  <div class="row">
+    <div class="col-lg-6 offset-lg-6">
+      <form *ngIf="!loggedIn()" #loginForm="ngForm" (ngSubmit)="login()">
+
+        <h1 class="heading-font">Sign In</h1>
+
+        <div class="textbox form-group">
+          <i class="fa fa-user mt-2"></i>
+          <input type="text" class="form-control" placeholder="Username" required name="userName"
+            [(ngModel)]="model.userName">
+        </div>
+
+        <div class="textbox form-group">
+          <i class="fa fa-lock mt-2"></i>
+          <input type="password" class="form-control" placeholder="Password" required name="password"
+            [(ngModel)]="model.password">
+        </div>
+
+        <div class="form-group">
+          <input [disabled]="!loginForm.valid" class="btn btn-primary submit-btn" type="submit" value="Sign In"
+            style="margin-right: 10px">
+          <input class="btn btn-danger cancel-btn" type="button" value="Cancel" (click)="cancel()">
+        </div>
+      </form>
+
+    </div>
+  </div>
+</div>

@@ -1,7 +1,15 @@
-.logoFont {
-    font-size: 25px;
-}
-
 .routeFont {
     font-size: 20px;
+}
+
+.dropdown-toggle, .dropdown-item {
+    cursor: pointer;
+}
+
+#logoutBtn:hover {
+    color: white;
+}
+
+.active {
+    color: black;
 }

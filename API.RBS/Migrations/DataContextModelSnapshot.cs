@@ -32,6 +32,24 @@ namespace API.RBS.Migrations
                     b.ToTable("Experiences");
                 });
 
+            modelBuilder.Entity("API.RBS.Models.Image", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Name");
+
+                    b.Property<string>("Src");
+
+                    b.Property<string>("Title");
+
+                    b.Property<string>("Type");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Images");
+                });
+
             modelBuilder.Entity("API.RBS.Models.Programme", b =>
                 {
                     b.Property<int>("Id")

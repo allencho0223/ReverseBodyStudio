@@ -1,51 +1,78 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, Injector } from '@angular/core';
-import { createCustomElement } from '@angular/elements';
+import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { BsDropdownModule, ModalModule, TabsModule } from 'ngx-bootstrap';
+import { RouterModule } from '@angular/router';
+
 
 import { AppComponent } from './app.component';
-import { UserComponent } from './user/user.component';
 import { NavComponent } from './nav/nav.component';
-import { AuthService } from './_services/auth.service';
 import { HomeComponent } from './home/home.component';
-import { RegisterComponent } from './register/register.component';
-import { HomeDefinitionComponent } from './home/home-definition/home-definition.component';
+import { FaqComponent } from './faq/faq.component';
+import { BeforeAndAfterComponent } from './before-and-after/before-and-after.component';
+import { FacilitiesComponent } from './about/facilities/facilities.component';
+import { InstructorsComponent } from './about/instructors/instructors.component';
+import { ReversebodyComponent } from './about/reversebody/reversebody.component';
+import { AuthLoginComponent } from './auth/auth-login/auth-login.component';
+import { ProgrammeDietComponent } from './programmes/programme-diet/programme-diet.component';
+import { ProgrammePilatesComponent } from './programmes/programme-pilates/programme-pilates.component';
+import { ProgrammeRehabComponent } from './programmes/programme-rehab/programme-rehab.component';
+import { ProgrammeStrengthComponent } from './programmes/programme-strength/programme-strength.component';
+import { AuthRegisterComponent } from './auth/auth-register/auth-register.component';
+
 import { ErrorInterceptorProvider } from './_services/error.interceptor';
+
+import { AuthService } from './_services/auth.service';
+import { AlertifyService } from './_services/alertify.service';
+import { appRoutes } from './routes';
+import { ContactComponent } from './contact/contact.component';
+import { ScheduleComponent } from './schedule/schedule.component';
+
+
+
+
+
 
 
 @NgModule({
    declarations: [
       AppComponent,
-      UserComponent,
       NavComponent,
       HomeComponent,
-      RegisterComponent,
-      HomeDefinitionComponent
+      FaqComponent,
+      BeforeAndAfterComponent,
+      FacilitiesComponent,
+      InstructorsComponent,
+      ReversebodyComponent,
+      AuthRegisterComponent,
+      AuthLoginComponent,
+      ProgrammeDietComponent,
+      ProgrammePilatesComponent,
+      ProgrammeRehabComponent,
+      ProgrammeStrengthComponent,
+      ContactComponent,
+      ScheduleComponent,
    ],
    imports: [
       BrowserModule,
       HttpClientModule,
-      FormsModule
+      FormsModule,
+      NgbModule.forRoot(),
+      BsDropdownModule.forRoot(),
+      RouterModule.forRoot(appRoutes),
+      TabsModule.forRoot(),
+      ModalModule.forRoot()
    ],
    providers: [
       AuthService,
-      ErrorInterceptorProvider
+      ErrorInterceptorProvider,
+      AlertifyService
    ],
    bootstrap: [
       AppComponent
-   ],
-   entryComponents: [
-      HomeComponent
    ]
 })
 
-export class AppModule {
-   constructor(private injector: Injector) {
-      const slider = createCustomElement(HomeComponent, { injector });
-      customElements.define('motley-slider', slider);
-   }
-
-   ngDoBootstrap() { }
-
-}
+export class AppModule { }

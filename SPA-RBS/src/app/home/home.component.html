@@ -1,46 +1,23 @@
-<div class="container mt-5">
-  <div *ngIf="!registerMode" style="text-align: center">
-    <h1>Find your match</h1>
-    <p class="lead">Come on in to view your matches... All you need to do is sign up!</p>
-    <div class="text-center">
-      <button class="btn btn-primary btn-lg" (click)="registerToggle()">Register</button>
-      <button class="btn btn-info btn-lg">Learn more</button>
-    </div>
-  </div>
-
-  <div *ngIf="registerMode" class="container">
-    <div class="row justify-content-center">
-      <div class="col-4">
-        <!-- [usersFromHome] == input property -->
-        <app-register (cancelRegister)="cancelRegisterMode($event)"></app-register>
-      </div>
-    </div>
-  </div>
-</div>
-
 <div class="container">
-  <div class="img-container" *ngFor="let i of sliderArray; let select = index;"
-    [ngClass]="{'selected': select == selectedIndex}">
-    <img src="{{ i.src }}" alt="{{ i.alt }}">
-  </div>
-
-  <div [ngStyle]="{'transform': 'translateY('+ transform + '%' +')', 'transition': '.8s'}">
-    <div class="text-container">
-      <div class="page-text" *ngFor="let i of sliderArray;let select = index;"
-        [ngClass]="{'selected': select == selectedIndex}">
-        <h3>{{ i.text }}</h3>
-      </div>
+  <div class="row">
+    <div class="col-lg-6 offset-lg-6 text-center">
+      <p class="main-hash main-font">#Reverse & Rebirth</p>
     </div>
+    <div class="col-lg-6 offset-lg-6 logo-animation text-center">
+        <img src="../../assets/img/logo/logo_transparent.png" alt="" class="logo_fade" width="150px" height="150px">
+        <span class="main-font ml-3 rbs-fade">ReverseBody</span>
+    </div>
+    
+      
   </div>
-
 </div>
 
-<div class="slider">
-  <div class="slide-button-parent-container" *ngFor="let i of sliderArray; let x =index" (click)="selected(x)"
-    (keypress)="keySelected(x)">
-    <div class="select-box">
-      <div class="slide-button" [ngClass]="{'slide-button-select': x == selectedIndex}">
-      </div>
-    </div>
-  </div>
-</div>
+
+
+
+
+<!-- <ngb-carousel *ngIf="images">
+  <ng-template ngbSlide *ngFor="let image of images">
+    <img class="mainImgs" [src]="image" alt="Image">
+  </ng-template>
+</ngb-carousel> -->

@@ -1,0 +1,34 @@
+.gallery{
+    display:inline-flex;
+    position:relative;
+}
+
+.facility-img {
+    margin: 10px;
+    border-radius: 20px;
+    transition: 0.5s;
+}
+  
+.facility-img:hover + .facility-description {
+    opacity: 1;
+
+}
+
+.facility-img:hover {
+    opacity: 0.3;
+    cursor: pointer;
+}
+
+.facility-description {
+    opacity: 1;
+
+}
+  
+.facility-description {
+    position:absolute;
+    top: 50%;
+    width: 100%;
+    text-align: center;
+    opacity: 0;
+    transition: 0.5s;
+}

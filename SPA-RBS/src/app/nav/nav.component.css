@@ -1,15 +1,32 @@
-.routeFont {
-    font-size: 20px;
+.nav-route-container {
+    text-align: right;
 }
 
-.dropdown-toggle, .dropdown-item {
+.line-protector {
+    display: inline-block;
+}
+
+a {
+    text-decoration: none;
+}
+
+.dropdown {
     cursor: pointer;
 }
 
-#logoutBtn:hover {
-    color: white;
-}
-
-.active {
-    color: black;
+@media screen and (max-width: 992px) {
+    .container {
+        position: relative;
+    }
+    .hamburger {
+        display: inline-block;
+        position: absolute;
+        top: 30px;
+        right: 100px;
+        position: fixed;
+    }
+    .route-item {
+        display: block;
+        text-align: left;
+    }
 }

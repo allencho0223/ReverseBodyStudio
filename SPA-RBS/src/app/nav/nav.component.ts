@@ -12,7 +12,7 @@ export class NavComponent implements OnInit {
 
   // The model variable will retrieve the user's id and password as an object
   model: any = {};
-
+  isNavbarCollapsed = true;
   constructor(public authService: AuthService, private alertify: AlertifyService,
     private router: Router) { }
 

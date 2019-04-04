@@ -5,54 +5,25 @@
 @import '../node_modules/alertifyjs/build/css/themes/bootstrap.min.css';
 @import '../node_modules/bootswatch/dist/cyborg/bootstrap.min.css';
 
+html {
+    height: 100%;
+}
+
 body {
-    /* position: relative;
-    margin: 0;
-    padding: 0; */
-    background: linear-gradient( rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3) ), url("assets/img/bg/cycling.jpg") bottom   left no-repeat, #000;
-    background-size: 70%;
+    margin-top: 120px;
+    margin-bottom: 170px;
+    min-height: 100%;
+    background: linear-gradient( rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3) ), url("assets/img/bg/cycling.jpg") bottom 100px left 0 no-repeat, #000;
+    background-size: 60%;
     background-attachment: fixed;
     font-family: sans-serif;
+    position: relative;
 }
 
-/* Ng Bootstrap carousel fade in and out effect */
-/* ngb-carousel {
-    width: inherit;
-    height: inherit;
+.route-font {
+    font-size: 20px;
+    color: #fff;
 }
-
-.carousel-inner {
-    overflow: visible;
-}
-
-.carousel-item {
-    display: flex !important;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 1.2s ease-in-out, visibility 1.2s;
-    z-index: -1;
-    position: absolute;
-}
-
-.carousel-item.active{
-    opacity: 1;
-    visibility: visible;
-    transition: opacity 1.2s ease-in-out, visibility 1.2s;
-    z-index: 10;
-}
-
-.carousel-control-prev {
-     z-index: 20;
-}
-
-
-.carousel-control-next {
-     z-index: 20;
-}
-
-.carousel-indicators{
-    z-index: 20;
-} */
 
 .heading-font {
     color: #fff;

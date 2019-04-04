@@ -1,30 +1,25 @@
 <div class="container">
   <div class="row">
     <div class="col-lg-6 offset-lg-6">
-      <p class="heading-font">Facilities</p>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-lg-6 offset-lg-6">
+      <h1 class="heading-font">Facilities</h1>
       <div *ngFor="let facility of facilities" class="gallery">
-        <img (click)="openModal(facilityTemplate)" src='../../../{{ facility.src }}' alt="{{ facility.name }}" class='facility-img' width="250px;" height="250px;" />
+        <img (click)="openModal(facilityTemplate)" src='../../../{{ facility.src }}' alt="{{ facility.name }}"
+          class='facility-img' width="250px;" height="250px;" />
         <div class='facility-description content-font'>{{ facility.name }}</div>
 
         <ng-template #facilityTemplate>
-            <div class="modal-header ">
-                <h4 class="modal-title pull-left">{{ facility.name }}</h4>
-                <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body text-center">
-                <img src="../../../{{ facility.src }}" alt="{{ facility.name }}" width="450" height="450">
-            </div>
+          <div class="modal-header ">
+            <h4 class="modal-title pull-left">{{ facility.name }}</h4>
+            <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body text-center">
+            <img class="modal-img" src="../../../{{ facility.src }}" alt="{{ facility.name }}" width="450" height="450">
+          </div>
         </ng-template>
       </div>
     </div>
 
   </div>
 </div>
-
-  

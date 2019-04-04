@@ -16,10 +16,9 @@ import { FacilitiesComponent } from './about/facilities/facilities.component';
 import { InstructorsComponent } from './about/instructors/instructors.component';
 import { ReversebodyComponent } from './about/reversebody/reversebody.component';
 import { AuthLoginComponent } from './auth/auth-login/auth-login.component';
-import { ProgrammeDietComponent } from './programmes/programme-diet/programme-diet.component';
-import { ProgrammePilatesComponent } from './programmes/programme-pilates/programme-pilates.component';
-import { ProgrammeRehabComponent } from './programmes/programme-rehab/programme-rehab.component';
-import { ProgrammeStrengthComponent } from './programmes/programme-strength/programme-strength.component';
+import { ContactComponent } from './contact/contact.component';
+import { ScheduleComponent } from './schedule/schedule.component';
+import { ProgrammesComponent } from './programmes/programmes.component';
 import { AuthRegisterComponent } from './auth/auth-register/auth-register.component';
 
 import { ErrorInterceptorProvider } from './_services/error.interceptor';
@@ -27,8 +26,8 @@ import { ErrorInterceptorProvider } from './_services/error.interceptor';
 import { AuthService } from './_services/auth.service';
 import { AlertifyService } from './_services/alertify.service';
 import { appRoutes } from './routes';
-import { ContactComponent } from './contact/contact.component';
-import { ScheduleComponent } from './schedule/schedule.component';
+import { FooterComponent } from './footer/footer.component';
+
 
 
 
@@ -48,12 +47,10 @@ import { ScheduleComponent } from './schedule/schedule.component';
       ReversebodyComponent,
       AuthRegisterComponent,
       AuthLoginComponent,
-      ProgrammeDietComponent,
-      ProgrammePilatesComponent,
-      ProgrammeRehabComponent,
-      ProgrammeStrengthComponent,
       ContactComponent,
       ScheduleComponent,
+      ProgrammesComponent,
+      FooterComponent
    ],
    imports: [
       BrowserModule,

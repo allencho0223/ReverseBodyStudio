@@ -6,9 +6,8 @@ namespace API.RBS.Models
     {
         public int Id { get; set; }
         public string ProgrammeName { get; set; }
+        public string ProgrammeEnglishName { get; set; }
         public string Description { get; set; }
-        public string Effect { get; set; }
-        public int InstructorId { get; set; }
-        public Instructor Instructor { get; set; }
+        public string ProgrammeType { get; set; }
     }
 }

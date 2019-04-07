@@ -11,7 +11,6 @@
   
 .facility-img:hover + .facility-description {
     opacity: 1;
-
 }
 
 .facility-img:hover {
@@ -35,4 +34,9 @@
 
 .modal-img {
     border-radius: 5px;
+}
+
+.description-design {
+    font-size: 17px;
+    color: white;
 }

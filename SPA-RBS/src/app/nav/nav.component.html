@@ -2,75 +2,58 @@
   <div class="container">
     <div class="col-lg-1 nav-logo-container" routerLinkActive="active">
       <a class="route-font navbar-brand" [routerLink]="['/home']">
-        <img class="nav-logo"
-          src="../../assets/img/logo/logo_transparent.png" alt="ReverseBody Logo" width="70px" height="70px">
-          <span class="route-font ml-2">ReverseBody</span>
+        <img class="nav-logo" src="../../assets/img/logo/logo_transparent.png" alt="ReverseBody Logo" width="70px"
+          height="70px">
+          <span class="text-light route-font ml-2">ReverseBody</span>
       </a>
     </div>
-    <button class="navbar-toggler hidden-md -up hamburger" type="button" (click)="isNavbarCollapsed = !isNavbarCollapsed"
-      data-target="#navbarsDefault" aria-controls="navbarsDefault" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler hidden-md-up hamburger" type="button" (click)="isNavbarCollapsed = !isNavbarCollapsed"
+      aria-controls="navbarsDefault" aria-expanded="isNavbarCollapsed">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div [ngbCollapse]="isNavbarCollapsed" class="collapse navbar-collapse" id="navbarsDefault">
-        <div class="col-lg-11 nav-route-container" routerLinkActive="active">
-            <a [routerLink]="['/home']" class="text-light route-font mr-3 route-item">Home</a>
-            <div class="dropdown line-protector route-item" dropdown>
-              <a class="text-light route-font dropdown-toggle mr-3" dropdownToggle routerLinkActive="active">About</a>
-              <div class="dropdown-menu" *dropdownMenu>
-                <a class="dropdown-item" [routerLink]="['/reversebody']">ReverseBody</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" [routerLink]="['/instructors']">Instructors</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" [routerLink]="['/facilities']">Facilities</a>
-              </div>
-            </div>
-            <a [routerLink]="['/programmes']" class="text-light route-font mr-3 route-item">Programmes</a>
-            <a [routerLink]="['/beforeandafter']" class="text-light route-font mr-3 route-item">Before & After</a>
-            <a [routerLink]="['/faq']" class="text-light route-font mr-3 route-item">FAQ</a>
-            <a [routerLink]="['/contact']" class="text-light route-font mr-3 route-item">Contact</a>
-      
-            <div id="user-logged-in" *ngIf="loggedIn()" class="text-light dropdown line-protector route-item" dropdown>
-              <a class="dropdown-toggle text-light route-font" dropdownToggle>
-                {{ authService.decodedToken?.unique_name | titlecase }}
-              </a>
-              <div class="dropdown-menu" *dropdownMenu>
-                <a class="dropdown-item" [routerLink]="['/schedule']"><i class="fa fa-calendar"></i>&nbsp;&nbsp;Schedule</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#"><i class="fa fa-edit"></i>&nbsp;Edit Profile</a>
-                <div class="dropdown-divider"></div>
-                <a id="logoutBtn" class="dropdown-item" (click)="logout()"><i class="fa fa-sign-out"></i>&nbsp;Logout</a>
-              </div>
-            </div>
-      
-            <div id="user-account" *ngIf="!loggedIn()" class="text-light dropdown line-protector route-item" dropdown>
-              <a class="dropdown-toggle text-light route-font" style="margin-right: 10px" dropdownToggle
-                routerLinkActive="active">
-                <i class="fa fa-user-circle route-font"></i>&nbsp;Account
-              </a>
-              <div class="dropdown-menu" *dropdownMenu>
-                <a class="dropdown-item" [routerLink]="['/register']"><i class="fa fa-user-plus"></i>&nbsp;&nbsp;Register</a>
-                <div class="dropdown-divider"></div>
-                <a id="logoutBtn" class="dropdown-item" [routerLink]="['/login']"><i
-                    class="fa fa-sign-in"></i>&nbsp;&nbsp;&nbsp;Login</a>
-              </div>
-            </div>
+      <div class="col-lg-11 nav-route-container" routerLinkActive="active">
+        <a [routerLink]="['/home']" class="text-light route-font mr-5 route-item">Home</a>
+        <div class="dropdown line-protector route-item" dropdown>
+          <a class="text-light route-font dropdown-toggle mr-5" dropdownToggle>About</a>
+          <div class="dropdown-menu" *dropdownMenu>
+            <a class="dropdown-item" [routerLink]="['/instructors']">Instructors</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" [routerLink]="['/facilities']">Facilities</a>
           </div>
+        </div>
+        <a [routerLink]="['/programmes']" class="text-light route-font mr-5 route-item">Programmes</a>
+        <a [routerLink]="['/beforeandafter']" class="text-light route-font mr-5 route-item">Before & After</a>
+        <a [routerLink]="['/faq']" class="text-light route-font mr-5 route-item">FAQ</a>
+        <a [routerLink]="['/contact']" class="text-light route-font mr-5 route-item">Contact</a>
 
-
-
-
-
-
-      <!-- <ul class="navbar-nav mr-auto">
-        <li class="nav-item dropdown" ngbDropdown>
-          <a class="nav-link dropdown-toggle" id="id01" href="#" ngbDropdownToggle>Files</a>
-          <div class="dropdown-menu" aria-labelledby="id01" ngbDropdownMenu>
-            <a class="dropdown-item" href="#">HTML</a>
-            <a class="dropdown-item" href="#">TS</a>
-            <a class="dropdown-item" href="#">JS</a>
+        <div id="user-logged-in" *ngIf="loggedIn()" class="dropdown line-protector route-item" dropdown>
+          <a class="text-light dropdown-toggle route-font" dropdownToggle>
+            {{ authService.decodedToken?.unique_name | titlecase }}
+          </a>
+          <div class="dropdown-menu" *dropdownMenu>
+            <a class="dropdown-item" [routerLink]="['/schedule']"><i class="fa fa-calendar"></i>&nbsp;&nbsp;Schedule</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#"><i class="fa fa-edit"></i>&nbsp;Edit Profile</a>
+            <div class="dropdown-divider"></div>
+            <a id="logoutBtn" class="dropdown-item" (click)="logout()"><i class="fa fa-sign-out"></i>&nbsp;Logout</a>
           </div>
-        </li>
-      </ul> -->
+        </div>
+
+        <div id="user-account" *ngIf="!loggedIn()" class="dropdown line-protector route-item" dropdown>
+          <a class="text-light dropdown-toggle route-font" style="margin-right: 10px" dropdownToggle
+            routerLinkActive="active">
+            <i class="fa fa-user-circle route-font"></i>&nbsp;Account
+          </a>
+          <div class="dropdown-menu" *dropdownMenu>
+            <a class="dropdown-item" [routerLink]="['/register']"><i
+                class="fa fa-user-plus"></i>&nbsp;&nbsp;Register</a>
+            <div class="dropdown-divider"></div>
+            <a id="logoutBtn" class="dropdown-item" [routerLink]="['/login']"><i
+                class="fa fa-sign-in"></i>&nbsp;&nbsp;&nbsp;Login</a>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 

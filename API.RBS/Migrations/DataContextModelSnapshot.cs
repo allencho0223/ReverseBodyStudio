@@ -37,11 +37,11 @@ namespace API.RBS.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<string>("Description");
+
+                    b.Property<string>("ImageSrc");
+
                     b.Property<string>("Name");
-
-                    b.Property<string>("Src");
-
-                    b.Property<string>("Title");
 
                     b.Property<string>("Type");
 
@@ -57,11 +57,13 @@ namespace API.RBS.Migrations
 
                     b.Property<string>("Description");
 
-                    b.Property<string>("Effect");
+                    b.Property<int?>("InstructorId");
 
-                    b.Property<int>("InstructorId");
+                    b.Property<string>("ProgrammeEnglishName");
 
                     b.Property<string>("ProgrammeName");
+
+                    b.Property<string>("ProgrammeType");
 
                     b.HasKey("Id");
 
@@ -102,9 +104,13 @@ namespace API.RBS.Migrations
 
                     b.Property<string>("Email");
 
+                    b.Property<string>("EnglishName");
+
                     b.Property<string>("Gender");
 
                     b.Property<int>("Height");
+
+                    b.Property<string>("Name");
 
                     b.Property<byte[]>("PasswordHash");
 
@@ -140,7 +146,11 @@ namespace API.RBS.Migrations
 
                     b.Property<string>("Major");
 
+                    b.Property<string>("ProfileSrc");
+
                     b.Property<string>("Specialty");
+
+                    b.Property<string>("ThumbnailSrc");
 
                     b.ToTable("Instructor");
 
@@ -157,10 +167,9 @@ namespace API.RBS.Migrations
 
             modelBuilder.Entity("API.RBS.Models.Programme", b =>
                 {
-                    b.HasOne("API.RBS.Models.Instructor", "Instructor")
+                    b.HasOne("API.RBS.Models.Instructor")
                         .WithMany("Programmes")
-                        .HasForeignKey("InstructorId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("InstructorId");
                 });
 
             modelBuilder.Entity("API.RBS.Models.Symptom", b =>

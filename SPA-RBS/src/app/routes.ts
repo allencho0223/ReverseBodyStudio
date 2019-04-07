@@ -2,7 +2,6 @@ import { Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { FacilitiesComponent } from './about/facilities/facilities.component';
 import { InstructorsComponent } from './about/instructors/instructors.component';
-import { ReversebodyComponent } from './about/reversebody/reversebody.component';
 import { BeforeAndAfterComponent } from './before-and-after/before-and-after.component';
 import { FaqComponent } from './faq/faq.component';
 import { AuthRegisterComponent } from './auth/auth-register/auth-register.component';
@@ -16,7 +15,6 @@ export const appRoutes: Routes = [
     { path: 'home', component: HomeComponent },
     { path: 'facilities', component: FacilitiesComponent },
     { path: 'instructors', component: InstructorsComponent },
-    { path: 'reversebody', component: ReversebodyComponent },
     { path: 'beforeandafter', component: BeforeAndAfterComponent },
     { path: 'faq', component: FaqComponent },
     { path: 'programmes', component: ProgrammesComponent },

@@ -1,5 +1,6 @@
 .nav-route-container {
     text-align: right;
+    right: -100px;
 }
 
 .line-protector {
@@ -14,7 +15,16 @@ a {
     cursor: pointer;
 }
 
+@media screen and (max-width: 1200px) {
+    .route-font {
+        font-size: 14px;
+    }
+}
+
 @media screen and (max-width: 992px) {
+    .nav-route-container {
+        right: 0;
+    }
     .container {
         position: relative;
     }
@@ -29,4 +39,12 @@ a {
         display: block;
         text-align: left;
     }
+}
+
+.navbar {
+    background-color: #CCE6FB;
+}
+
+.collapse {
+    transition: 0.5s transform ease-in-out;
 }

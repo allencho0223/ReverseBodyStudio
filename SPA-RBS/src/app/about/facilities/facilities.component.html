@@ -1,9 +1,9 @@
 <div class="container">
   <div class="row">
-    <div class="col-lg-6 offset-lg-6">
+    <div class="col-lg-6 col-md-10 offset-lg-6 offset-md-1">
       <h1 class="heading-font">Facilities</h1>
       <div *ngFor="let facility of facilities" class="gallery">
-        <img (click)="openModal(facilityTemplate)" src='../../../{{ facility.src }}' alt="{{ facility.name }}"
+        <img (click)="openModal(facilityTemplate)" src='../../../{{ facility.imageSrc }}' alt="{{ facility.name }}"
           class='facility-img' width="250px;" height="250px;" />
         <div class='facility-description content-font'>{{ facility.name }}</div>
 
@@ -15,7 +15,8 @@
             </button>
           </div>
           <div class="modal-body text-center">
-            <img class="modal-img" src="../../../{{ facility.src }}" alt="{{ facility.name }}" width="450" height="450">
+            <img class="modal-img" src="../../../{{ facility.imageSrc }}" alt="{{ facility.name }}" width="450" height="450">
+            <p class="description-design">{{ facility.description }}</p>
           </div>
         </ng-template>
       </div>

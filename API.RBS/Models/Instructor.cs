@@ -8,7 +8,8 @@ namespace API.RBS.Models
         public string Major { get; set; }
         public string Degree { get; set; }
         public string Specialty { get; set; }
-        public ICollection<Programme> Programmes { get; set; }
+        public string ThumbnailSrc { get; set; }
+        public string ProfileSrc { get; set; }
         public ICollection<Experience> Experiences { get; set; }
     }
 }

@@ -13,9 +13,9 @@ export class ImageService {
     return this.http.get(this.baseUrl);
   }
 
-  getInstructorImages() {
-    return this.http.get(this.baseUrl + 'instructors');
-  }
+  // getInstructorImages() {
+  //   return this.http.get(this.baseUrl + 'instructors');
+  // }
 
   getFacilityImages() {
     return this.http.get(this.baseUrl + 'facilities');

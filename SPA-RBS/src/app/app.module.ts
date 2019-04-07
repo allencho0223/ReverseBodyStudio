@@ -14,7 +14,7 @@ import { FaqComponent } from './faq/faq.component';
 import { BeforeAndAfterComponent } from './before-and-after/before-and-after.component';
 import { FacilitiesComponent } from './about/facilities/facilities.component';
 import { InstructorsComponent } from './about/instructors/instructors.component';
-import { ReversebodyComponent } from './about/reversebody/reversebody.component';
+
 import { AuthLoginComponent } from './auth/auth-login/auth-login.component';
 import { ContactComponent } from './contact/contact.component';
 import { ScheduleComponent } from './schedule/schedule.component';
@@ -35,6 +35,8 @@ import { FooterComponent } from './footer/footer.component';
 
 
 
+
+
 @NgModule({
    declarations: [
       AppComponent,
@@ -44,7 +46,6 @@ import { FooterComponent } from './footer/footer.component';
       BeforeAndAfterComponent,
       FacilitiesComponent,
       InstructorsComponent,
-      ReversebodyComponent,
       AuthRegisterComponent,
       AuthLoginComponent,
       ContactComponent,

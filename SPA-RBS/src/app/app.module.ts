@@ -6,11 +6,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BsDropdownModule, ModalModule, TabsModule } from 'ngx-bootstrap';
 import { RouterModule } from '@angular/router';
 
-
 import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
 import { HomeComponent } from './home/home.component';
-import { FaqComponent } from './faq/faq.component';
 import { BeforeAndAfterComponent } from './before-and-after/before-and-after.component';
 import { FacilitiesComponent } from './about/facilities/facilities.component';
 import { InstructorsComponent } from './about/instructors/instructors.component';
@@ -27,22 +25,13 @@ import { AuthService } from './_services/auth.service';
 import { AlertifyService } from './_services/alertify.service';
 import { appRoutes } from './routes';
 import { FooterComponent } from './footer/footer.component';
-
-
-
-
-
-
-
-
-
+import { AuthGuard } from './_guards/auth.guard';
 
 @NgModule({
    declarations: [
       AppComponent,
       NavComponent,
       HomeComponent,
-      FaqComponent,
       BeforeAndAfterComponent,
       FacilitiesComponent,
       InstructorsComponent,
@@ -66,7 +55,8 @@ import { FooterComponent } from './footer/footer.component';
    providers: [
       AuthService,
       ErrorInterceptorProvider,
-      AlertifyService
+      AlertifyService,
+      AuthGuard
    ],
    bootstrap: [
       AppComponent

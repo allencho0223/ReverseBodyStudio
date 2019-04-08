@@ -15,7 +15,7 @@ export const appRoutes: Routes = [
     { path: 'home', component: HomeComponent },
     { path: 'facilities', component: FacilitiesComponent },
     { path: 'instructors', component: InstructorsComponent },
-    { path: 'beforeandafter', component: BeforeAndAfterComponent },
+    { path: 'bna', component: BeforeAndAfterComponent },
     { path: 'faq', component: FaqComponent },
     { path: 'programmes', component: ProgrammesComponent },
     { path: 'register', component: AuthRegisterComponent },

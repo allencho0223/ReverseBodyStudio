@@ -56,6 +56,22 @@ namespace API.RBS.Controllers
             return Ok(facilities);
         }
 
+        [HttpGet("bna")]
+        public async Task<IActionResult> GetBnaImages()
+        {
+            var images = await _context.Images.ToListAsync();
+            var bnaImages = new List<Image>();
+            for (var i = 0; i < images.Count; i++)
+            {
+                if (images[i].Type.Contains("Before") || images[i].Type.Contains("After"))
+                {
+                    bnaImages.Add(images[i]);
+                }
+            }
+
+            return Ok(bnaImages);
+        }
+
         [HttpGet("{id}")]
         public async Task<IActionResult> GetImage(int id)
         {

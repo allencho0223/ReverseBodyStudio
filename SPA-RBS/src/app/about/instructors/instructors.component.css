@@ -1,11 +1,17 @@
 .instructor-bg {
     width: 250px;
     height: 250px;
+    border: 10px solid;
+    border-left: none;
+    border-bottom: none;
+    border-right-color: skyblue;
+    border-top-color: skyblue;
+    border-radius: 50%;
 }
 
 .exp-style {
     color: #fff;
-    font-size: 17px;
+    font-size: 20px;
 }
 
 button:hover {

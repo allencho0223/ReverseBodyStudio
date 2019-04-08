@@ -9,16 +9,12 @@ export class ImageService {
 
   constructor(private http: HttpClient) { }
 
-  getImages() {
-    return this.http.get(this.baseUrl);
-  }
-
-  // getInstructorImages() {
-  //   return this.http.get(this.baseUrl + 'instructors');
-  // }
-
   getFacilityImages() {
     return this.http.get(this.baseUrl + 'facilities');
+  }
+
+  getBnaImages() {
+    return this.http.get(this.baseUrl + 'bna');
   }
 
 }

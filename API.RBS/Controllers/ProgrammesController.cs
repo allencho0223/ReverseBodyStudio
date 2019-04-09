@@ -1,5 +1,7 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using API.RBS.Data;
+using API.RBS.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,11 +17,34 @@ namespace API.RBS.Controllers
             _context = context;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetProgrammes()
+        [HttpGet("rehab")]
+        public async Task<IActionResult> GetRehabProgrammes()
         {
             var programmes = await _context.Programmes.ToListAsync();
-            return Ok(programmes);
+            var rehabProgrammes = new List<Programme>();
+            for (var i = 0; i < programmes.Count; i++)
+            {
+                if (programmes[i].ProgrammeType.Equals("Rehab"))
+                {
+                    rehabProgrammes.Add(programmes[i]);
+                }
+            }
+            return Ok(rehabProgrammes);
+        }
+
+        [HttpGet("fmw")]
+        public async Task<IActionResult> GetFmwProgrammes()
+        {
+            var programmes = await _context.Programmes.ToListAsync();
+            var fmwProgrammes = new List<Programme>();
+            for (var i = 0; i < programmes.Count; i++)
+            {
+                if (programmes[i].ProgrammeType.Equals("FMW"))
+                {
+                    fmwProgrammes.Add(programmes[i]);
+                }
+            }
+            return Ok(fmwProgrammes);
         }
 
         [HttpGet("{id}")]

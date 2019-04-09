@@ -24,22 +24,6 @@ namespace API.RBS.Controllers
             return Ok(images);
         }
 
-        // [HttpGet("instructors")]
-        // public async Task<IActionResult> GetInstructorImages()
-        // {
-        //     var images = await _context.Images.ToListAsync();
-        //     var instructors = new List<Image>();
-        //     // var idx = 0;
-        //     for (var i = 0; i < images.Count; i++)
-        //     {
-        //         if (images[i].Type.Contains("Profile"))
-        //         {
-        //             instructors.Add(images[i]);
-        //         }
-        //     }
-        //     return Ok(instructors);
-        // }
-
         [HttpGet("facilities")]
         public async Task<IActionResult> GetFacilityImages()
         {

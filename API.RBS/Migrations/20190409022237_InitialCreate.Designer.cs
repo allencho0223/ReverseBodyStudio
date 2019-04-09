@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API.RBS.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20190406054922_ModelModifications")]
-    partial class ModelModifications
+    [Migration("20190409022237_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -59,8 +59,6 @@ namespace API.RBS.Migrations
 
                     b.Property<string>("Description");
 
-                    b.Property<int?>("InstructorId");
-
                     b.Property<string>("ProgrammeEnglishName");
 
                     b.Property<string>("ProgrammeName");
@@ -68,8 +66,6 @@ namespace API.RBS.Migrations
                     b.Property<string>("ProgrammeType");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("InstructorId");
 
                     b.ToTable("Programmes");
                 });
@@ -97,9 +93,11 @@ namespace API.RBS.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("Age");
+                    b.Property<string>("Address");
 
                     b.Property<string>("ContactNumber");
+
+                    b.Property<DateTime>("DateOfBirth");
 
                     b.Property<string>("Discriminator")
                         .IsRequired();
@@ -144,13 +142,7 @@ namespace API.RBS.Migrations
                 {
                     b.HasBaseType("API.RBS.Models.User");
 
-                    b.Property<string>("Degree");
-
-                    b.Property<string>("Major");
-
                     b.Property<string>("ProfileSrc");
-
-                    b.Property<string>("Specialty");
 
                     b.Property<string>("ThumbnailSrc");
 
@@ -165,13 +157,6 @@ namespace API.RBS.Migrations
                         .WithMany("Experiences")
                         .HasForeignKey("InstructorId")
                         .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("API.RBS.Models.Programme", b =>
-                {
-                    b.HasOne("API.RBS.Models.Instructor")
-                        .WithMany("Programmes")
-                        .HasForeignKey("InstructorId");
                 });
 
             modelBuilder.Entity("API.RBS.Models.Symptom", b =>

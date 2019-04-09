@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace API.RBS.Migrations
 {
-    public partial class ModelModifications : Migration
+    public partial class InitialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -24,6 +24,22 @@ namespace API.RBS.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Programmes",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    ProgrammeName = table.Column<string>(nullable: true),
+                    ProgrammeEnglishName = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(nullable: true),
+                    ProgrammeType = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Programmes", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Users",
                 columns: table => new
                 {
@@ -36,15 +52,13 @@ namespace API.RBS.Migrations
                     PasswordSalt = table.Column<byte[]>(nullable: true),
                     ContactNumber = table.Column<string>(nullable: true),
                     Email = table.Column<string>(nullable: true),
-                    Age = table.Column<int>(nullable: false),
+                    Address = table.Column<string>(nullable: true),
+                    DateOfBirth = table.Column<DateTime>(nullable: false),
                     Gender = table.Column<string>(nullable: true),
                     Height = table.Column<int>(nullable: false),
                     Weight = table.Column<int>(nullable: false),
                     Discriminator = table.Column<string>(nullable: false),
                     Purpose = table.Column<string>(nullable: true),
-                    Major = table.Column<string>(nullable: true),
-                    Degree = table.Column<string>(nullable: true),
-                    Specialty = table.Column<string>(nullable: true),
                     ThumbnailSrc = table.Column<string>(nullable: true),
                     ProfileSrc = table.Column<string>(nullable: true)
                 },
@@ -74,29 +88,6 @@ namespace API.RBS.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Programmes",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    ProgrammeName = table.Column<string>(nullable: true),
-                    ProgrammeEnglishName = table.Column<string>(nullable: true),
-                    Description = table.Column<string>(nullable: true),
-                    ProgrammeType = table.Column<string>(nullable: true),
-                    InstructorId = table.Column<int>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Programmes", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Programmes_Users_InstructorId",
-                        column: x => x.InstructorId,
-                        principalTable: "Users",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Symptoms",
                 columns: table => new
                 {
@@ -120,11 +111,6 @@ namespace API.RBS.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Experiences_InstructorId",
                 table: "Experiences",
-                column: "InstructorId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Programmes_InstructorId",
-                table: "Programmes",
                 column: "InstructorId");
 
             migrationBuilder.CreateIndex(

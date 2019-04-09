@@ -12,27 +12,17 @@ import { HttpClient } from '@angular/common/http';
 export class InstructorsComponent implements OnInit {
   modalRef: BsModalRef;
   instructors: any;
-  experiences: any;
-  baseUrl = 'http://localhost:5000/api/';
+  baseUrl = 'http://localhost:5000/api/users/';
   constructor(private modalService: BsModalService, private http: HttpClient
     , private alertify: AlertifyService) { }
 
   ngOnInit() {
     this.getInstructors();
-    this.getExperiences();
   }
 
   getInstructors() {
     return this.http.get(this.baseUrl + 'instructors').subscribe(response => {
       this.instructors = response;
-    }, error => {
-      this.alertify.error(error);
-    });
-  }
-
-  getExperiences() {
-    return this.http.get(this.baseUrl + 'experiences').subscribe(response => {
-      this.experiences = response;
     }, error => {
       this.alertify.error(error);
     });

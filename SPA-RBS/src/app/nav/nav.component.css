@@ -11,6 +11,10 @@ a {
     text-decoration: none;
 }
 
+#logout-btn {
+    color: white;
+}
+
 .dropdown {
     cursor: pointer;
 }

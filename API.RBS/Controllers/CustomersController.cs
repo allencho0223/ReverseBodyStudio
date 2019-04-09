@@ -10,28 +10,28 @@ namespace API.RBS.Controllers
     public class CustomersController : ControllerBase
     {
 
-        private readonly DataContext _context;
-        public CustomersController(DataContext context)
-        {
-            _context = context;
-        }
+        // private readonly DataContext _context;
+        // public CustomersController(DataContext context)
+        // {
+        //     _context = context;
+        // }
 
-        // GET api/instructors
-        [HttpGet]
-        public async Task<IActionResult> GetInstructors()
-        {
-            var instructors = await _context.Instructors.ToListAsync();
-            return Ok(instructors);
-        }
+        // // GET api/instructors
+        // [HttpGet]
+        // public async Task<IActionResult> GetInstructors()
+        // {
+        //     var instructors = await _context.Instructors.ToListAsync();
+        //     return Ok(instructors);
+        // }
 
-        // GET api/instructors/1
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetInstructor(int id)
-        {
-            var instructor = await _context.Instructors
-                                .FirstOrDefaultAsync(x => x.Id == id);
-            return Ok(instructor);
-        }
+        // // GET api/instructors/1
+        // [HttpGet("{id}")]
+        // public async Task<IActionResult> GetInstructor(int id)
+        // {
+        //     var instructor = await _context.Instructors
+        //                         .FirstOrDefaultAsync(x => x.Id == id);
+        //     return Ok(instructor);
+        // }
 
     }
 }

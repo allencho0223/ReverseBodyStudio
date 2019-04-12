@@ -13,5 +13,7 @@ namespace API.RBS.Data
          Task<IEnumerable<Customer>> GetCustomers();
          Task<Instructor> GetInstructor(int id);
          Task<Customer> GetCustomer(int id);
+         Task<IEnumerable<User>> GetUsers();
+         Task<User> GetUser(int id);
     }
 }

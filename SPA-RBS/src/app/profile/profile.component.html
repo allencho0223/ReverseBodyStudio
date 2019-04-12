@@ -1,0 +1,73 @@
+<div class="container">
+  <div class="row">
+    <div class="col-lg-6 offset-lg-6">
+      <h1 class="heading-font">{{ user.name }}님의 프로필</h1>
+      <div class="row mb-3">
+        <div class="col-lg-6">
+          <div *ngIf="customer" class="profile-img-container">
+            <img class="profile-img" src="../../{{ user.imagePath }}" alt="{{ user.name }}">
+          </div>
+        </div>
+      </div>
+
+      <form #editForm="ngForm" id="editForm" *ngIf="customer" (ngSubmit)="updateUser()">
+        <div *ngIf="editForm.dirty" class="alert alert-info">
+          <strong>Information:</strong> 프로필이 업데이트 되었습니다. 저장되지 않은 정보는 사라집니다.
+        </div>
+        <div class="form-row">
+          <div class="form-group col-lg-6">
+            <label class="bodytitle-font" for="customerEmail">이메일</label>
+            <input type="text" name="email" id="customerEmail" class="form-control" value="{{ customer.email }}"
+              placeholder="예)reverse-gym@naver.com">
+          </div>
+          <div class="form-group col-lg-6">
+            <label class="bodytitle-font" for="customerContact">연락처</label>
+            <input type="input" name="contact" class="form-control" id="customerContact" placeholder="예)010-1234-1234"
+              [(ngModel)]="customer.phone">
+          </div>
+
+          <div class="form-group col-lg-12">
+            <label class="bodytitle-font" for="customerAddress">주소</label>
+            <input type="text" name="address" id="customerAddress" class="form-control" [(ngModel)]="customer.address"
+              placeholder="예)인천광역시 연수구 송도과학로27번길 55 롯데캐슬 캠퍼스타운 d동 302/303호">
+          </div>
+          <div class="form-group col-lg-6">
+            <label class="bodytitle-font" for="customerDob">나이</label>
+            <input type="input" name="dob" class="form-control" id="customerDob" placeholder="예)30"
+              [(ngModel)]="customer.age">
+          </div>
+
+          <div class="form-group col-lg-6">
+            <label class="bodytitle-font" for="customerGender">성별</label>
+            <input type="text" name="gender" id="customerGender" class="form-control" [(ngModel)]="customer.gender"
+              placeholder="예)남 or 여">
+          </div>
+          <div class="form-group col-lg-6">
+            <label class="bodytitle-font" for="customerHeight">키</label>
+            <input type="input" name="height" class="form-control" id="customerHeight" placeholder="예)170"
+              [(ngModel)]="customer.height">
+          </div>
+          <div class="form-group col-lg-6">
+            <label class="bodytitle-font" for="customerWeight">몸무게</label>
+            <input type="input" name="weight" class="form-control" id="customerWeight" placeholder="예)50"
+              [(ngModel)]="customer.weight">
+          </div>
+          <div class="form-group col-lg-12">
+            <label class="bodytitle-font" for="customerPurpose">목적</label>
+            <input type="input" name="purpose" class="form-control" id="customerPurpose" placeholder="예)재활치료"
+              [(ngModel)]="customer.purpose">
+          </div>
+          <div class="form-group col-lg-12">
+            <div *ngFor="let symptom of customer.symptoms">
+              <label class="subheading-font" for="customerSymptom">상태</label>
+              <h3 class="bodytitle-font">{{ symptom.symptomName }}</h3>
+              <p class="content-font">{{ symptom.details }}</p>
+            </div>
+
+          </div>
+        </div>
+        <button [disabled]="!editForm.dirty" type="submit" class="btn btn-primary">저장하기</button>
+      </form>
+    </div>
+  </div>
+</div>

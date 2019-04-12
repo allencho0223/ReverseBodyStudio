@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace API.RBS.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class InstructorIdSetNullable : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -47,24 +47,30 @@ namespace API.RBS.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     UserName = table.Column<string>(nullable: true),
                     Name = table.Column<string>(nullable: true),
-                    EnglishName = table.Column<string>(nullable: true),
                     PasswordHash = table.Column<byte[]>(nullable: true),
                     PasswordSalt = table.Column<byte[]>(nullable: true),
-                    ContactNumber = table.Column<string>(nullable: true),
+                    ImagePath = table.Column<string>(nullable: true),
+                    UserType = table.Column<string>(nullable: true),
+                    Discriminator = table.Column<string>(nullable: false),
+                    Phone = table.Column<string>(nullable: true),
                     Email = table.Column<string>(nullable: true),
                     Address = table.Column<string>(nullable: true),
-                    DateOfBirth = table.Column<DateTime>(nullable: false),
+                    DateOfBirth = table.Column<DateTime>(nullable: true),
                     Gender = table.Column<string>(nullable: true),
-                    Height = table.Column<int>(nullable: false),
-                    Weight = table.Column<int>(nullable: false),
-                    Discriminator = table.Column<string>(nullable: false),
+                    Height = table.Column<int>(nullable: true),
+                    Weight = table.Column<int>(nullable: true),
                     Purpose = table.Column<string>(nullable: true),
-                    ThumbnailSrc = table.Column<string>(nullable: true),
-                    ProfileSrc = table.Column<string>(nullable: true)
+                    InstructorId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Users", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Users_Users_InstructorId",
+                        column: x => x.InstructorId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.SetNull);
                 });
 
             migrationBuilder.CreateTable(
@@ -117,6 +123,11 @@ namespace API.RBS.Migrations
                 name: "IX_Symptoms_CustomerId",
                 table: "Symptoms",
                 column: "CustomerId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Users_InstructorId",
+                table: "Users",
+                column: "InstructorId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

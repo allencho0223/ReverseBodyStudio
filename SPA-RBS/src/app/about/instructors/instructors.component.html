@@ -8,9 +8,7 @@
                 <ngb-tab *ngFor="let instructor of instructors">
                     <ng-template ngbTabTitle><b>{{ instructor.name }}</b></ng-template>
                     <ng-template ngbTabContent>
-                        <h2 class="subheading-font" style="margin-top: 20px; margin-bottom: 20px;">{{ instructor.name }}
-                            ({{ instructor.englishName }})</h2>
-                        <img class="instructor-bg" src="../../{{ instructor.thumbnailSrc }}"
+                        <img class="instructor-bg mt-4" src="../../{{ instructor.imagePath.split(',')[0] }}"
                             alt="{{ instructor.name }}">
                         <div style="margin-top: 20px" class="exp-container" *ngFor="let experience of instructor.experiences">
                             <p class="exp-style">
@@ -22,17 +20,15 @@
                             More</button>
                     </ng-template>
 
-
-
                     <ng-template #instructorTemplate>
                         <div class="modal-header ">
-                            <h4 class="modal-title pull-left">{{ instructor.name }} ({{ instructor.englishName }})</h4>
+                            <h4 class="modal-title pull-left">{{ instructor.name }}</h4>
                             <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
                         <div class="modal-body text-center">
-                            <img class="modal-img" src="../../../{{ instructor.profileSrc }}"
+                            <img class="modal-img" src="../../../{{ instructor.imagePath.split(',')[1] }}"
                                 alt="{{ instructor.name }}" width="770" height="770">
                         </div>
                     </ng-template>

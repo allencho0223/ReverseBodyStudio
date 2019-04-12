@@ -5,28 +5,28 @@ import { InstructorsComponent } from './about/instructors/instructors.component'
 import { BeforeAndAfterComponent } from './before-and-after/before-and-after.component';
 import { AuthRegisterComponent } from './auth/auth-register/auth-register.component';
 import { AuthLoginComponent } from './auth/auth-login/auth-login.component';
-import { ScheduleComponent } from './schedule/schedule.component';
 import { ContactComponent } from './contact/contact.component';
 import { ProgrammesComponent } from './programmes/programmes.component';
-import { AuthGuard } from './_guards/auth.guard';
+import { ProfileComponent } from './profile/profile.component';
+import { ProfileResolver } from './_resolvers/profile.resolver';
+import { ManageInstructorsComponent } from './manage/manage-instructors/manage-instructors.component';
+import { ManageCustomersComponent } from './manage/manage-customers/manage-customers.component';
+import { StatusComponent } from './status/status.component';
+import { PreventUnsavedChanges } from './_guards/prevent-unsaved-changes.guard';
 
 export const appRoutes: Routes = [
     // Each route is an object
     { path: '', component: HomeComponent },
-    // Dummy route protecting child routes
-    {
-        path: '', // If path has specific string, it will be added in front of child routes
-        runGuardsAndResolvers: 'always',
-        canActivate: [AuthGuard],
-        children: [
-            { path: 'facilities', component: FacilitiesComponent },
-            { path: 'instructors', component: InstructorsComponent },
-            { path: 'bna', component: BeforeAndAfterComponent },
-            { path: 'programmes', component: ProgrammesComponent },
-            { path: 'contact', component: ContactComponent },
-        ]
-    },
-    { path: 'schedule', component: ScheduleComponent },
+    { path: 'facilities', component: FacilitiesComponent },
+    { path: 'instructors', component: InstructorsComponent },
+    { path: 'bna', component: BeforeAndAfterComponent },
+    { path: 'programmes', component: ProgrammesComponent },
+    { path: 'contact', component: ContactComponent },
+    // /:id specifies route parameter
+    { path: 'profile', component: ProfileComponent, resolve: { user: ProfileResolver}, canDeactivate: [PreventUnsavedChanges] },
+    { path: 'manage-instructors', component: ManageInstructorsComponent, resolve: { user: ProfileResolver} },
+    { path: 'manage-customers', component: ManageCustomersComponent, resolve: { user: ProfileResolver} },
+    { path: 'status', component: StatusComponent },
     { path: 'register', component: AuthRegisterComponent },
     { path: 'login', component: AuthLoginComponent },
 

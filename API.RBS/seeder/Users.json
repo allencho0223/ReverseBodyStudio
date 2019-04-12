@@ -1,0 +1,11 @@
+[
+	{
+		"id": "1",
+		"userName": "admin",
+		"name": "Admin",
+		"password": "password",
+		"imagePath": "assets/img/profiles/anonymous.jpg",
+		"userType": "User"
+	}
+	
+]

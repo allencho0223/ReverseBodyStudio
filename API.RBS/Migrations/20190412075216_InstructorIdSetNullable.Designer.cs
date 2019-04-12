@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API.RBS.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20190409022237_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20190412075216_InstructorIdSetNullable")]
+    partial class InstructorIdSetNullable
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -93,22 +93,10 @@ namespace API.RBS.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Address");
-
-                    b.Property<string>("ContactNumber");
-
-                    b.Property<DateTime>("DateOfBirth");
-
                     b.Property<string>("Discriminator")
                         .IsRequired();
 
-                    b.Property<string>("Email");
-
-                    b.Property<string>("EnglishName");
-
-                    b.Property<string>("Gender");
-
-                    b.Property<int>("Height");
+                    b.Property<string>("ImagePath");
 
                     b.Property<string>("Name");
 
@@ -118,7 +106,7 @@ namespace API.RBS.Migrations
 
                     b.Property<string>("UserName");
 
-                    b.Property<int>("Weight");
+                    b.Property<string>("UserType");
 
                     b.HasKey("Id");
 
@@ -131,7 +119,25 @@ namespace API.RBS.Migrations
                 {
                     b.HasBaseType("API.RBS.Models.User");
 
+                    b.Property<string>("Address");
+
+                    b.Property<DateTime>("DateOfBirth");
+
+                    b.Property<string>("Email");
+
+                    b.Property<string>("Gender");
+
+                    b.Property<int>("Height");
+
+                    b.Property<int?>("InstructorId");
+
+                    b.Property<string>("Phone");
+
                     b.Property<string>("Purpose");
+
+                    b.Property<int>("Weight");
+
+                    b.HasIndex("InstructorId");
 
                     b.ToTable("Customer");
 
@@ -142,9 +148,6 @@ namespace API.RBS.Migrations
                 {
                     b.HasBaseType("API.RBS.Models.User");
 
-                    b.Property<string>("ProfileSrc");
-
-                    b.Property<string>("ThumbnailSrc");
 
                     b.ToTable("Instructor");
 
@@ -165,6 +168,13 @@ namespace API.RBS.Migrations
                         .WithMany("Symptoms")
                         .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("API.RBS.Models.Customer", b =>
+                {
+                    b.HasOne("API.RBS.Models.Instructor", "Instructor")
+                        .WithMany("Customers")
+                        .HasForeignKey("InstructorId");
                 });
 #pragma warning restore 612, 618
         }

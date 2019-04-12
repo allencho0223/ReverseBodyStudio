@@ -11,16 +11,17 @@ import { Router } from '@angular/router';
 export class AuthLoginComponent implements OnInit {
   model: any = {};
 
-  constructor(private authService: AuthService, private alertify: AlertifyService, private router: Router) { }
+  constructor(private authService: AuthService, private alertify: AlertifyService
+    , private router: Router) { }
 
   ngOnInit() {
   }
 
   login() {
     this.authService.login(this.model).subscribe(next => {
-      this.alertify.success('You have been successfully logged in');
+      this.alertify.success('성공적으로 로그인 하셨습니다.');
     }, error => {
-      this.alertify.error(error);
+      this.alertify.error('아이디 또는 패스워드를 잘못 입력하셨습니다.');
     }, () => {
       this.router.navigate(['/home']);
     });
@@ -32,7 +33,7 @@ export class AuthLoginComponent implements OnInit {
 
   logout() {
     localStorage.removeItem('token');
-    this.alertify.message('You have been logged out');
+    this.alertify.message('성공적으로 로그아웃 하였습니다.');
     this.router.navigate(['/home']);
   }
 

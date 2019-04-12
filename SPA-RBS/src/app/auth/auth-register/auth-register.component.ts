@@ -17,7 +17,7 @@ export class AuthRegisterComponent implements OnInit {
 
   register() {
     this.authService.register(this.model).subscribe(() => {
-      this.alertify.success('You have been successfully registered');
+      this.alertify.success('계정이 성공적으로 등록되었습니다.');
     }, error => {
       this.alertify.error(error);
     }, () => {

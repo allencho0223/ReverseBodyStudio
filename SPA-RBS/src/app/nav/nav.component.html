@@ -4,7 +4,7 @@
       <a class="route-font navbar-brand" [routerLink]="['/home']">
         <img class="nav-logo" src="../../assets/img/logo/logo_transparent.png" alt="ReverseBody Logo" width="70px"
           height="70px">
-          <span class="text-light route-font ml-2">ReverseBody</span>
+        <span class="text-light route-font ml-2">ReverseBody</span>
       </a>
     </div>
     <button class="navbar-toggler hidden-md-up hamburger" type="button" (click)="isNavbarCollapsed = !isNavbarCollapsed"
@@ -31,25 +31,75 @@
             {{ authService.decodedToken?.unique_name | titlecase }}
           </a>
           <div class="dropdown-menu" *dropdownMenu>
-            <a class="dropdown-item" [routerLink]="['/schedule']"><i class="fa fa-calendar"></i>&nbsp;&nbsp;Schedule</a>
+            <a class="dropdown-item" [routerLink]="['/manage-instructors']"><i class="fa fa-edit"></i>&nbsp;Manage
+              Instructors</a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#"><i class="fa fa-edit"></i>&nbsp;Edit Profile</a>
+            <a class="dropdown-item" [routerLink]="['/manage-customers']"><i class="fa fa-edit"></i>&nbsp;Manage
+              Customers</a>
             <div class="dropdown-divider"></div>
+            <a class="dropdown-item" [routerLink]="['/status']"><i class="fa fa-edit"></i>&nbsp;My Status</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" [routerLink]="['/profile']"><i class="fa fa-edit"></i>&nbsp;Edit Profile</a>
+              <div class="dropdown-divider"></div>
+            <!-- <ng-container *ngIf="currentUser.userName.includes('admin'); else instructor">
+              <a class="dropdown-item" [routerLink]="['/manage-instructors']"><i class="fa fa-edit"></i>&nbsp;Manage
+                Instructors</a>
+              <div class="dropdown-divider"></div>
+            </ng-container>
+
+            <ng-template #instructor>
+              <ng-container *ngIf="currentUser.userName.includes('rbs_'); else customer">
+                <a class="dropdown-item" [routerLink]="['/manage-customers']"><i class="fa fa-edit"></i>&nbsp;Manage
+                  Customers</a>
+                <div class="dropdown-divider"></div>
+              </ng-container>
+            </ng-template>
+
+            <ng-template #customer>
+              <a class="dropdown-item" [routerLink]="['/status']"><i class="fa fa-edit"></i>&nbsp;My Status</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" [routerLink]="['/profile']"><i class="fa fa-edit"></i>&nbsp;Edit Profile</a>
+              <div class="dropdown-divider"></div>
+            </ng-template> -->
+            
             <a id="logout-btn" class="dropdown-item" (click)="logout()"><i class="fa fa-sign-out"></i>&nbsp;Logout</a>
           </div>
         </div>
 
-        <div id="user-account" *ngIf="!loggedIn()" class="dropdown line-protector route-item" dropdown>
-          <a class="text-light dropdown-toggle route-font" style="margin-right: 10px" dropdownToggle
+        <div id="user-account" *ngIf="!loggedIn()" class="dropdown line-protector route-item" autoClose="outside"
+          ngbDropdown>
+          <a class="text-light dropdown-toggle route-font" style="margin-right: 10px" ngbDropdownToggle
             routerLinkActive="active">
             <i class="fa fa-user-circle route-font"></i>&nbsp;Account
           </a>
-          <div class="dropdown-menu" *dropdownMenu>
+
+          <div class="dropdown-menu" ngbDropdownMenu>
+            <form class="form-container" *ngIf="!loggedIn()" #loginForm="ngForm" (ngSubmit)="login()">
+
+              <div class="form-group input-container mb-3 mt-2">
+                <i class="fa fa-user mt-2 input-icon"></i>
+                <input class="input-box" type="text" class="form-control" placeholder="Username" required
+                  name="userName" [(ngModel)]="model.userName">
+              </div>
+
+              <div class="form-group input-container">
+                <i class="fa fa-lock mt-2 input-icon"></i>
+                <input class="input-box" type="password" class="form-control" placeholder="Password" required
+                  name="password" [(ngModel)]="model.password">
+              </div>
+
+              <div class="form-group input-container">
+                <input [disabled]="!loginForm.valid" class="btn btn-primary submit-btn" type="submit" value="Sign In">
+              </div>
+            </form>
+
+            <div class="dropdown-divider"></div>
             <a class="dropdown-item" [routerLink]="['/register']"><i
                 class="fa fa-user-plus"></i>&nbsp;&nbsp;Register</a>
-            <div class="dropdown-divider"></div>
-            <a id="logoutBtn" class="dropdown-item" [routerLink]="['/login']"><i
-                class="fa fa-sign-in"></i>&nbsp;&nbsp;&nbsp;Login</a>
+
+
+            <!-- <a id="logoutBtn" class="dropdown-item" [routerLink]="['/login']"><i
+                class="fa fa-sign-in"></i>&nbsp;&nbsp;&nbsp;Login</a> -->
           </div>
         </div>
       </div>

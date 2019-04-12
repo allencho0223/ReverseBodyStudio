@@ -52,3 +52,23 @@ a {
 .collapse {
     transition: 0.5s transform ease-in-out;
 }
+
+.input-container {
+    position: relative;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.input-icon {
+    position: absolute;
+    left: 5px;
+    top: 3px;
+}
+
+.input-box {
+    width: 300px;
+}
+
+.form-container {
+    width: 200px;
+}

@@ -1,0 +1,15 @@
+Id,Name,Description,Type,ImageSrc
+1,Cable Machine,,Facilities,assets/img/facilities/cable_machine.jpg
+2,Treadmill & Dumbbell,,Facilities,assets/img/facilities/treadmill_and_dumbbell.jpg
+3,Free Weight Machines,,Facilities,assets/img/facilities/free_weight.jpg
+4,Gym Ball,,Facilities,assets/img/facilities/gym_ball.jpg
+5,Sling,,Facilities,assets/img/facilities/sling.jpg
+6,Ca-Former,ref: http://intopilates.com/%EC%83%81%ED%92%88/caformer/,Facilities,assets/img/facilities/ca-former.jpg
+7,Wattbike,ref: http://summitfit.com.au/product/wattbike-trainer/,Facilities,assets/img/facilities/wattbike.jpg
+8,Hyper Sphere,ref: https://www.amazon.com/HYPERSPHERE-Hyperice-Localized-Vibration-Therapy/dp/B017WR3HBC,Facilities,assets/img/facilities/hyper_sphere.jpg
+9,Hypervolt,ref: https://www.rei.com/product/141799/hyperice-hypervolt-cordless-vibration-massager,Facilities,assets/img/facilities/hypervolt.jpg
+10,"팔꿈치 가동범위 재활 전,팔꿈치 가동범위 재활 후",,"Before,After","assets/img/bna/arm_rehab_b.jpg,assets/img/bna/arm_rehab_a.jpg"
+11,"다리 교정 전,다리 교정 후",,"Before,After","assets/img/bna/leg_rehab_b.jpg,assets/img/bna/leg_rehab_a.jpg"
+12,"척추 측만증 교정 전,척추 측만증 교정 후",,"Before,After","assets/img/bna/scoliosis_b.jpg,assets/img/bna/scoliosis_a.jpg"
+13,"어깨 가동범위 재활 전,어깨 가동범위 재활 후",,"Before,After","assets/img/bna/shoulder_rehab_b.jpg,assets/img/bna/shoulder_rehab_a.jpg"
+14,"근력강화 & 체중조절 전,근력강화 & 체중조절 후",,"Before,After","assets/img/bna/diet_b.jpg,assets/img/bna/diet_a.jpg"

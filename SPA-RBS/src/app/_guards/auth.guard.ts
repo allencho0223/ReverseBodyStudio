@@ -23,7 +23,7 @@ export class AuthGuard implements CanActivate {
       return true;
     }
 
-    this.alertify.error('You are not allowed to see this content');
+    this.alertify.error('이 페이지는 접속하실 수 없습니다.');
     this.router.navigate(['/home']);
     return false;
   }

@@ -8,16 +8,15 @@ namespace API.RBS.Helpers
     {
         public AutoMapperProfiles()
         {
-            CreateMap<Instructor, InstructorForListDto>()
-                .ForMember(dest => dest.Age, opt => {
-                    opt.ResolveUsing(d => d.DateOfBirth.CalculateAge());
-                });
+            CreateMap<User, UserForListDto>();
+            CreateMap<Instructor, InstructorForListDto>();
             CreateMap<Customer, CustomerForListDto>()
                 .ForMember(dest => dest.Age, opt => {
                     opt.ResolveUsing(d => d.DateOfBirth.CalculateAge());
                 });
             CreateMap<Experience, ExperiencesForListDto>();
             CreateMap<Symptom, SymptomsForListDto>();
+            CreateMap<UserForUpdateDto, Customer>();
         }
     }
 }

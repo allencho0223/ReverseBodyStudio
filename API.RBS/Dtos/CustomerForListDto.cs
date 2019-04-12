@@ -1,15 +1,12 @@
+using System;
 using System.Collections.Generic;
 using API.RBS.Models;
 
 namespace API.RBS.Dtos
 {
-    public class CustomerForListDto
+    public class CustomerForListDto : UserForListDto
     {
-        public int Id { get; set; }
-        public string UserName { get; set; }
-        public string Name { get; set; }
-        public string EnglishName { get; set; }
-        public string ContactNumber { get; set; }
+        public string Phone { get; set; }
         public string Email { get; set; }
         public string Address { get; set; }
         public int Age { get; set; }
@@ -17,6 +14,7 @@ namespace API.RBS.Dtos
         public int Height { get; set; }
         public int Weight { get; set; }
         public string Purpose { get; set; }
+        public int? InstructorId { get; set; }
         public ICollection<SymptomsForListDto> Symptoms { get; set; }
     }
 }

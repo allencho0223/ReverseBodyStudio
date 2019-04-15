@@ -16,5 +16,8 @@ namespace API.RBS.Dtos
         public string Purpose { get; set; }
         public int? InstructorId { get; set; }
         public ICollection<SymptomsForListDto> Symptoms { get; set; }
+        public ICollection<PhotoForReturnDto> CustomerImages { get; set; }
+        public ICollection<ProgrammeForListDto> Programmes { get; set; }
+        
     }
 }

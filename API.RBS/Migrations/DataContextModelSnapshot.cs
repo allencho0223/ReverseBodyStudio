@@ -16,6 +16,28 @@ namespace API.RBS.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.1.1-rtm-30846");
 
+            modelBuilder.Entity("API.RBS.Models.CustomerImage", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("CustomerId");
+
+                    b.Property<DateTime>("DateTaken");
+
+                    b.Property<string>("Description");
+
+                    b.Property<string>("PublicId");
+
+                    b.Property<string>("Url");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CustomerId");
+
+                    b.ToTable("CustomerImages");
+                });
+
             modelBuilder.Entity("API.RBS.Models.Experience", b =>
                 {
                     b.Property<int>("Id")
@@ -55,15 +77,21 @@ namespace API.RBS.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Description");
+                    b.Property<int>("CustomerId");
 
-                    b.Property<string>("ProgrammeEnglishName");
+                    b.Property<string>("Description");
 
                     b.Property<string>("ProgrammeName");
 
                     b.Property<string>("ProgrammeType");
 
+                    b.Property<string>("RelatedLink");
+
+                    b.Property<DateTime>("SessionTime");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("CustomerId");
 
                     b.ToTable("Programmes");
                 });
@@ -152,11 +180,27 @@ namespace API.RBS.Migrations
                     b.HasDiscriminator().HasValue("Instructor");
                 });
 
+            modelBuilder.Entity("API.RBS.Models.CustomerImage", b =>
+                {
+                    b.HasOne("API.RBS.Models.Customer", "Customer")
+                        .WithMany("CustomerImages")
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
             modelBuilder.Entity("API.RBS.Models.Experience", b =>
                 {
                     b.HasOne("API.RBS.Models.Instructor", "Instructor")
                         .WithMany("Experiences")
                         .HasForeignKey("InstructorId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("API.RBS.Models.Programme", b =>
+                {
+                    b.HasOne("API.RBS.Models.Customer", "Customer")
+                        .WithMany("Programmes")
+                        .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

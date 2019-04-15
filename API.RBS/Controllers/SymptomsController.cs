@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace API.RBS.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/users/customers/{customerId}/[controller]")]
     [ApiController]
     public class SymptomsController : ControllerBase
     {

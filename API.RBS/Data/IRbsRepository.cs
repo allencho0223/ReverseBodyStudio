@@ -15,5 +15,7 @@ namespace API.RBS.Data
          Task<Customer> GetCustomer(int id);
          Task<IEnumerable<User>> GetUsers();
          Task<User> GetUser(int id);
+         Task<CustomerImage> GetPhoto(int id);
+         Task<Programme> GetProgramme(int id);
     }
 }

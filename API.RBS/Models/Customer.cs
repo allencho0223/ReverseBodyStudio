@@ -16,5 +16,7 @@ namespace API.RBS.Models
         public int? InstructorId { get; set; }
         public Instructor Instructor { get; set; }
         public ICollection<Symptom> Symptoms { get; set; }
+        public ICollection<CustomerImage> CustomerImages { get; set; }
+        public ICollection<Programme> Programmes { get; set; }
     }
 }

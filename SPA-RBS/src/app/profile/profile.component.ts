@@ -57,13 +57,12 @@ export class ProfileComponent implements OnInit {
 
   updateUser() {
     this.userService.updateUser(this.authService.decodedToken.nameid, this.customer).subscribe(next => {
-      this.alertify.success('업데이트 되었습니다.');
+      this.alertify.success('프로필이 업데이트 되었습니다.');
       this.editForm.reset(this.customer);
       this.router.navigate(['']);
     }, error => {
       this.alertify.error('프로필 업데이트에 실패하였습니다.');
     });
-
   }
 
 }

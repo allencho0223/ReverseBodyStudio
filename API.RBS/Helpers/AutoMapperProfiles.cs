@@ -8,6 +8,7 @@ namespace API.RBS.Helpers
     {
         public AutoMapperProfiles()
         {
+            // Source to Destination
             CreateMap<User, UserForListDto>();
             CreateMap<Instructor, InstructorForListDto>();
             CreateMap<Customer, CustomerForListDto>()
@@ -17,6 +18,9 @@ namespace API.RBS.Helpers
             CreateMap<Experience, ExperiencesForListDto>();
             CreateMap<Symptom, SymptomsForListDto>();
             CreateMap<UserForUpdateDto, Customer>();
+            CreateMap<CustomerImage, PhotoForReturnDto>();
+            CreateMap<PhotoForCreationDto, CustomerImage>();
+            CreateMap<Programme, ProgrammeForListDto>();
         }
     }
 }

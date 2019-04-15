@@ -1,57 +1,91 @@
 using System.Collections.Generic;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using API.RBS.Data;
+using API.RBS.Dtos;
 using API.RBS.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace API.RBS.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/users/customers/{customerId}/[controller]")]
     [ApiController]
     public class ProgrammesController : ControllerBase
     {
+        private readonly IRbsRepository _repo;
         private readonly DataContext _context;
-        public ProgrammesController(DataContext context)
+        public ProgrammesController(IRbsRepository repo, DataContext context)
         {
             _context = context;
+            _repo = repo;
         }
 
-        [HttpGet("rehab")]
-        public async Task<IActionResult> GetRehabProgrammes()
+        [HttpPost]
+        public async Task<IActionResult> AssignProgramme(int customerId, ProgrammeForListDto programmeForListDto)
         {
-            var programmes = await _context.Programmes.ToListAsync();
-            var rehabProgrammes = new List<Programme>();
-            for (var i = 0; i < programmes.Count; i++)
+            // if (customerId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+            //     return Unauthorized();
+
+            var customerFromRepo = await _repo.GetCustomer(customerId);
+
+            var programmeForReturn = new Programme
             {
-                if (programmes[i].ProgrammeType.Equals("Rehab"))
-                {
-                    rehabProgrammes.Add(programmes[i]);
-                }
+                ProgrammeName = programmeForListDto.ProgrammeName,
+                ProgrammeType = programmeForListDto.ProgrammeType,
+                Description = programmeForListDto.Description,
+                RelatedLink = programmeForListDto.RelatedLink,
+                SessionTime = programmeForListDto.SessionTime,
+                CustomerId = customerId
+            };
+
+            customerFromRepo.Programmes.Add(programmeForReturn);
+
+            if (await _repo.SaveAll())
+            {
+                return StatusCode(201);
             }
-            return Ok(rehabProgrammes);
+            return BadRequest("프로그램 등록에 실패하였습니다");
         }
 
-        [HttpGet("fmw")]
-        public async Task<IActionResult> GetFmwProgrammes()
+        [HttpGet]
+        public async Task<IActionResult> GetProgrammes(int customerId)
         {
+            var customerFromRepo = await _repo.GetCustomer(customerId);
             var programmes = await _context.Programmes.ToListAsync();
-            var fmwProgrammes = new List<Programme>();
+            var assignedProgrammes = new List<Programme>();
             for (var i = 0; i < programmes.Count; i++)
             {
-                if (programmes[i].ProgrammeType.Equals("FMW"))
+                if (programmes[i].CustomerId == customerId)
                 {
-                    fmwProgrammes.Add(programmes[i]);
+                    assignedProgrammes.Add(programmes[i]);
                 }
             }
-            return Ok(fmwProgrammes);
+
+            return Ok(assignedProgrammes);
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteProgramme(int id)
+        {
+            var programme = await _context.Programmes.FindAsync(id);
+
+            if (programme == null)
+            {
+                return NotFound();
+            }
+
+            _context.Programmes.Remove(programme);
+            await _context.SaveChangesAsync();
+
+            return NoContent();
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetProgramme(int id)
         {
-            var programme = await _context.Programmes
-                            .FirstOrDefaultAsync(x => x.Id == id);
+            var programme = await _context.Programmes.FirstOrDefaultAsync(p => p.Id == id);
+
             return Ok(programme);
         }
     }

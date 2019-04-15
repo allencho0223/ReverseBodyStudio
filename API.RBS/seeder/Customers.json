@@ -17,8 +17,8 @@
 	},
 	{
 		"id": "8",
-		"userName": "allen1",
-		"name": "조민영",
+		"userName": "ddolddol",
+		"name": "김똘똘",
 		"password": "password",
 		"imagePath": "assets/img/profiles/anonymous.jpg",
 		"userType": "Customer",
@@ -33,8 +33,8 @@
 	},
 	{
 		"id": "9",
-		"userName": "allen2",
-		"name": "조민영",
+		"userName": "chunbong",
+		"name": "박춘봉",
 		"password": "password",
 		"imagePath": "assets/img/profiles/anonymous.jpg",
 		"userType": "Customer",
@@ -49,8 +49,8 @@
 	},
 	{
 		"id": "10",
-		"userName": "allen3",
-		"name": "조민영",
+		"userName": "john",
+		"name": "John Doe",
 		"password": "password",
 		"imagePath": "assets/img/profiles/anonymous.jpg",
 		"userType": "Customer",
@@ -65,8 +65,8 @@
 	},
 	{
 		"id": "11",
-		"userName": "allen4",
-		"name": "조민영",
+		"userName": "tester",
+		"name": "Tester",
 		"password": "password",
 		"imagePath": "assets/img/profiles/anonymous.jpg",
 		"userType": "Customer",

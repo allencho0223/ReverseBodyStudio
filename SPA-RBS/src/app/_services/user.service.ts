@@ -6,8 +6,6 @@ import { Instructor } from '../_models/instructor';
 import { Customer } from '../_models/customer';
 import { User } from '../_models/user';
 
-
-
 @Injectable({
   providedIn: 'root'
 })

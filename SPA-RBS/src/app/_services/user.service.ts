@@ -3,15 +3,16 @@ import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Instructor } from '../_models/instructor';
-import { Customer } from '../_models/customer';
+import { Client } from '../_models/client';
 import { User } from '../_models/user';
+import { ClientImage } from '../_models/clientImage';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
   baseUrl = environment.apiUrl + 'users/';
-  allocatedCustomers: any;
+  allocatedClients: any;
   users: any;
 
   constructor(private http: HttpClient) {}
@@ -32,15 +33,27 @@ export class UserService {
     return this.http.get<Instructor>(this.baseUrl + 'instructors/' + id);
   }
 
-  getCustomers(): Observable<Customer[]> {
-    return this.http.get<Customer[]>(this.baseUrl + 'customers');
+  getClients(): Observable<Client[]> {
+    return this.http.get<Client[]>(this.baseUrl + 'clients');
   }
 
-  getCustomer(id): Observable<Customer> {
-    return this.http.get<Customer>(this.baseUrl + 'customers/' + id);
+  getClient(id): Observable<Client> {
+    return this.http.get<Client>(this.baseUrl + 'clients/' + id);
   }
 
-  updateUser(id: number, user: Customer) {
-    return this.http.put(this.baseUrl + 'customers/' + id, user);
+  updateClient(id: number, client: Client) {
+    return this.http.put(this.baseUrl + 'clients/' + id, client);
+  }
+
+  updateInstructor(id: number, instructor: Instructor) {
+    return this.http.put(this.baseUrl + 'instructors/' + id, instructor);
+  }
+
+  getClientImages(id): Observable<ClientImage> {
+    return this.http.get<ClientImage>(this.baseUrl + 'clients/' + id + '/clientimages');
+  }
+
+  deletePhoto(clientId: number, photoId: number) {
+    return this.http.delete(this.baseUrl + 'clients/' + clientId + '/clientimages/' + photoId);
   }
 }

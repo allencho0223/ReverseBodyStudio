@@ -10,12 +10,15 @@ namespace API.RBS.Data
          void Delete<T>(T entity) where T: class;
          Task<bool> SaveAll();
          Task<IEnumerable<Instructor>> GetInstructors();
-         Task<IEnumerable<Customer>> GetCustomers();
+         Task<IEnumerable<Client>> GetClients();
          Task<Instructor> GetInstructor(int id);
-         Task<Customer> GetCustomer(int id);
+         Task<Client> GetClient(int id);
          Task<IEnumerable<User>> GetUsers();
          Task<User> GetUser(int id);
-         Task<CustomerImage> GetPhoto(int id);
+         Task<ClientImage> GetPhoto(int id);
+         Task<IEnumerable<ClientImage>> GetPhotos();
          Task<Programme> GetProgramme(int id);
+         Task<Symptom> GetSymptom(int id);
+         Task<IEnumerable<Experience>> GetExperiences();
     }
 }

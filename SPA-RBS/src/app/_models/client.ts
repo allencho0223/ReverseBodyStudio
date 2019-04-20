@@ -1,9 +1,9 @@
 import { Symptom } from './symptom';
 import { User } from './user';
 import { Programme } from './programme';
-import { CustomerImage } from './customerImage';
+import { ClientImage } from './clientImage';
 
-export interface Customer extends User {
+export interface Client extends User {
     phone: string;
     email: string;
     address: string;
@@ -14,5 +14,5 @@ export interface Customer extends User {
     purpose: string;
     symptoms: Symptom[];
     programmes: Programme[];
-    customerImages: CustomerImage[];
+    clientImages: ClientImage[];
 }

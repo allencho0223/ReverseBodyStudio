@@ -9,6 +9,6 @@ namespace API.RBS.Dtos
         public string Url { get; set; }
         public DateTime DateTaken { get; set; }
         public string PublicId { get; set; }
-        public int CustomerId { get; set; }
+        public int ClientId { get; set; }
     }
 }

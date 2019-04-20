@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace API.RBS.Controllers
 {
-    [Route("api/users/customers/{customerId}/[controller]")]
+    [Route("api/users/clients/{clientId}/[controller]")]
     [ApiController]
     public class ProgrammesController : ControllerBase
     {
@@ -22,12 +22,12 @@ namespace API.RBS.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AssignProgramme(int customerId, ProgrammeForListDto programmeForListDto)
+        public async Task<IActionResult> AssignProgramme(int clientId, ProgrammeForListDto programmeForListDto)
         {
-            // if (customerId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+            // if (clientId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
             //     return Unauthorized();
 
-            var customerFromRepo = await _repo.GetCustomer(customerId);
+            var clientFromRepo = await _repo.GetClient(clientId);
 
             var programmeForReturn = new Programme
             {
@@ -36,10 +36,10 @@ namespace API.RBS.Controllers
                 Description = programmeForListDto.Description,
                 RelatedLink = programmeForListDto.RelatedLink,
                 SessionTime = programmeForListDto.SessionTime,
-                CustomerId = customerId
+                ClientId = clientId
             };
 
-            customerFromRepo.Programmes.Add(programmeForReturn);
+            clientFromRepo.Programmes.Add(programmeForReturn);
 
             if (await _repo.SaveAll())
             {
@@ -49,14 +49,14 @@ namespace API.RBS.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetProgrammes(int customerId)
+        public async Task<IActionResult> GetProgrammes(int clientId)
         {
-            var customerFromRepo = await _repo.GetCustomer(customerId);
+            var clientFromRepo = await _repo.GetClient(clientId);
             var programmes = await _context.Programmes.ToListAsync();
             var assignedProgrammes = new List<Programme>();
             for (var i = 0; i < programmes.Count; i++)
             {
-                if (programmes[i].CustomerId == customerId)
+                if (programmes[i].ClientId == clientId)
                 {
                     assignedProgrammes.Add(programmes[i]);
                 }
@@ -79,14 +79,6 @@ namespace API.RBS.Controllers
             await _context.SaveChangesAsync();
 
             return NoContent();
-        }
-
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetProgramme(int id)
-        {
-            var programme = await _context.Programmes.FirstOrDefaultAsync(p => p.Id == id);
-
-            return Ok(programme);
         }
     }
 }

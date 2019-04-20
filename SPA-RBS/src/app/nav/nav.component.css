@@ -43,6 +43,9 @@ a {
         display: block;
         text-align: left;
     }
+    .route-font {
+        font-size: 20px;
+    }
 }
 
 .navbar {

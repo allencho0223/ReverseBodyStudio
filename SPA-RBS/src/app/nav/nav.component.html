@@ -31,31 +31,31 @@
             {{ authService.decodedToken?.unique_name | titlecase }}
           </a>
           <div class="dropdown-menu" *dropdownMenu>
-            <a class="dropdown-item" [routerLink]="['/manage-instructors']"><i class="fa fa-edit"></i>&nbsp;Manage
-              Instructors</a>
+            <a class="dropdown-item" [routerLink]="['/manage-users']"><i class="fa fa-edit"></i>&nbsp;Manage
+              Users</a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" [routerLink]="['/manage-customers']"><i class="fa fa-edit"></i>&nbsp;Manage
-              Customers</a>
+            <a class="dropdown-item" [routerLink]="['/manage-clients']"><i class="fa fa-edit"></i>&nbsp;Manage
+              Clients</a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" [routerLink]="['/status']"><i class="fa fa-edit"></i>&nbsp;My Status</a>
               <div class="dropdown-divider"></div>
               <a class="dropdown-item" [routerLink]="['/profile']"><i class="fa fa-edit"></i>&nbsp;Edit Profile</a>
               <div class="dropdown-divider"></div>
             <!-- <ng-container *ngIf="currentUser.userName.includes('admin'); else instructor">
-              <a class="dropdown-item" [routerLink]="['/manage-instructors']"><i class="fa fa-edit"></i>&nbsp;Manage
+              <a class="dropdown-item" [routerLink]="['/manage-users']"><i class="fa fa-edit"></i>&nbsp;Manage
                 Instructors</a>
               <div class="dropdown-divider"></div>
             </ng-container>
 
             <ng-template #instructor>
-              <ng-container *ngIf="currentUser.userName.includes('rbs_'); else customer">
-                <a class="dropdown-item" [routerLink]="['/manage-customers']"><i class="fa fa-edit"></i>&nbsp;Manage
-                  Customers</a>
+              <ng-container *ngIf="currentUser.userName.includes('rbs_'); else client">
+                <a class="dropdown-item" [routerLink]="['/manage-clients']"><i class="fa fa-edit"></i>&nbsp;Manage
+                  Clients</a>
                 <div class="dropdown-divider"></div>
               </ng-container>
             </ng-template>
 
-            <ng-template #customer>
+            <ng-template #client>
               <a class="dropdown-item" [routerLink]="['/status']"><i class="fa fa-edit"></i>&nbsp;My Status</a>
               <div class="dropdown-divider"></div>
               <a class="dropdown-item" [routerLink]="['/profile']"><i class="fa fa-edit"></i>&nbsp;Edit Profile</a>

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace API.RBS.Migrations
 {
-    public partial class ProgrammeModelUpdate : Migration
+    public partial class UpdateModel : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -58,7 +58,7 @@ namespace API.RBS.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "CustomerImages",
+                name: "ClientImages",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -67,14 +67,14 @@ namespace API.RBS.Migrations
                     Url = table.Column<string>(nullable: true),
                     DateTaken = table.Column<DateTime>(nullable: false),
                     PublicId = table.Column<string>(nullable: true),
-                    CustomerId = table.Column<int>(nullable: false)
+                    ClientId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CustomerImages", x => x.Id);
+                    table.PrimaryKey("PK_ClientImages", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_CustomerImages_Users_CustomerId",
-                        column: x => x.CustomerId,
+                        name: "FK_ClientImages_Users_ClientId",
+                        column: x => x.ClientId,
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -111,14 +111,14 @@ namespace API.RBS.Migrations
                     Description = table.Column<string>(nullable: true),
                     SessionTime = table.Column<DateTime>(nullable: false),
                     ProgrammeType = table.Column<string>(nullable: true),
-                    CustomerId = table.Column<int>(nullable: false)
+                    ClientId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Programmes", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Programmes_Users_CustomerId",
-                        column: x => x.CustomerId,
+                        name: "FK_Programmes_Users_ClientId",
+                        column: x => x.ClientId,
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -132,23 +132,23 @@ namespace API.RBS.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     SymptomName = table.Column<string>(nullable: true),
                     Details = table.Column<string>(nullable: true),
-                    CustomerId = table.Column<int>(nullable: false)
+                    ClientId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Symptoms", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Symptoms_Users_CustomerId",
-                        column: x => x.CustomerId,
+                        name: "FK_Symptoms_Users_ClientId",
+                        column: x => x.ClientId,
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_CustomerImages_CustomerId",
-                table: "CustomerImages",
-                column: "CustomerId");
+                name: "IX_ClientImages_ClientId",
+                table: "ClientImages",
+                column: "ClientId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Experiences_InstructorId",
@@ -156,14 +156,14 @@ namespace API.RBS.Migrations
                 column: "InstructorId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Programmes_CustomerId",
+                name: "IX_Programmes_ClientId",
                 table: "Programmes",
-                column: "CustomerId");
+                column: "ClientId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Symptoms_CustomerId",
+                name: "IX_Symptoms_ClientId",
                 table: "Symptoms",
-                column: "CustomerId");
+                column: "ClientId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Users_InstructorId",
@@ -174,7 +174,7 @@ namespace API.RBS.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "CustomerImages");
+                name: "ClientImages");
 
             migrationBuilder.DropTable(
                 name: "Experiences");

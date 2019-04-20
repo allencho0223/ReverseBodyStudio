@@ -9,10 +9,10 @@ import { ContactComponent } from './contact/contact.component';
 import { ProgrammesComponent } from './programmes/programmes.component';
 import { ProfileComponent } from './profile/profile.component';
 import { ProfileResolver } from './_resolvers/profile.resolver';
-import { ManageInstructorsComponent } from './manage/manage-instructors/manage-instructors.component';
-import { ManageCustomersComponent } from './manage/manage-customers/manage-customers.component';
+import { ManageClientsComponent } from './manage/manage-clients/manage-clients.component';
 import { StatusComponent } from './status/status.component';
 import { PreventUnsavedChanges } from './_guards/prevent-unsaved-changes.guard';
+import { ManageUsersComponent } from './manage/manage-users/manage-users.component';
 
 export const appRoutes: Routes = [
     // Each route is an object
@@ -24,9 +24,9 @@ export const appRoutes: Routes = [
     { path: 'contact', component: ContactComponent },
     // /:id specifies route parameter
     { path: 'profile', component: ProfileComponent, resolve: { user: ProfileResolver}, canDeactivate: [PreventUnsavedChanges] },
-    { path: 'manage-instructors', component: ManageInstructorsComponent, resolve: { user: ProfileResolver} },
-    { path: 'manage-customers', component: ManageCustomersComponent, resolve: { user: ProfileResolver} },
-    { path: 'status', component: StatusComponent },
+    { path: 'manage-users', component: ManageUsersComponent, resolve: { user: ProfileResolver} },
+    { path: 'manage-clients', component: ManageClientsComponent, resolve: { user: ProfileResolver} },
+    { path: 'status', component: StatusComponent, resolve: { user: ProfileResolver} },
     { path: 'register', component: AuthRegisterComponent },
     { path: 'login', component: AuthLoginComponent },
 

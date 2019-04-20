@@ -1,50 +1,69 @@
 using System.Collections.Generic;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using API.RBS.Data;
+using API.RBS.Dtos;
 using API.RBS.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace API.RBS.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/users/instructors/{instructorId}/[controller]")]
     [ApiController]
     public class ExperiencesController : ControllerBase
     {
+        private readonly IRbsRepository _repo;
         private readonly DataContext _context;
-        public ExperiencesController(DataContext context)
+        public ExperiencesController(IRbsRepository repo, DataContext context)
         {
             _context = context;
-
+            _repo = repo;
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetExperiences()
-        {
-            var experiences = await _context.Experiences.ToListAsync();
-            return Ok(experiences);
-        }
-
-        // [HttpGet("{instructorId/id}")]
-        // public async Task<IActionResult> GetExperience(int id)
-        // {
-        //     var experience = await _context.Experiences.FirstOrDefaultAsync(x => x.Id == id);
-        //     return Ok(experience);
-        // }
-
-        [HttpGet("{instructorId}")]
         public async Task<IActionResult> GetInstructorExperiences(int instructorId)
         {
-            var experiences = await _context.Experiences.ToListAsync();
-            var instructorExps = new List<Experience>();
-            for (var i = 0; i < experiences.Count; i++)
+            var instructor = await _repo.GetInstructor(instructorId);
+            return Ok(instructor.Experiences);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddInstructorExperience(int instructorId, ExperienceForListDto experienceForListDto)
+        {
+            if (instructorId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+                return Unauthorized();
+
+            var instructorFromRepo = await _repo.GetInstructor(instructorId);
+            var experienceForReturn = new Experience
             {
-                if (experiences[i].InstructorId == instructorId)
-                {
-                    instructorExps.Add(experiences[i]);
-                }
+                Description = experienceForListDto.Description,
+                InstructorId = instructorId
+            };
+
+            instructorFromRepo.Experiences.Add(experienceForReturn);
+
+            if (await _repo.SaveAll())
+            {
+                return StatusCode(201);
             }
-            return Ok(instructorExps);
+            return BadRequest("프로그램 등록에 실패하였습니다");
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteExperience(int id)
+        {
+            var experience = await _context.Experiences.FindAsync(id);
+
+            if (experience == null)
+            {
+                return NotFound();
+            }
+
+            _context.Experiences.Remove(experience);
+            await _context.SaveChangesAsync();
+
+            return NoContent();
         }
     }
 }

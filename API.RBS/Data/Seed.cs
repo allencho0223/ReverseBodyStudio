@@ -16,11 +16,11 @@ namespace API.RBS.Data
         {
             var userData = System.IO.File.ReadAllText("./seeder/Users.json");
             var instructorData = System.IO.File.ReadAllText("./seeder/Instructors.json");
-            var customerData = System.IO.File.ReadAllText("./seeder/Customers.json");
+            var clientData = System.IO.File.ReadAllText("./seeder/Clients.json");
 
             var users = JsonConvert.DeserializeObject<List<User>>(userData);
             var instructors = JsonConvert.DeserializeObject<List<Instructor>>(instructorData);
-            var customers = JsonConvert.DeserializeObject<List<Customer>>(customerData);
+            var clients = JsonConvert.DeserializeObject<List<Client>>(clientData);
 
             foreach (var user in users)
             {
@@ -44,15 +44,15 @@ namespace API.RBS.Data
                 _context.Users.Add(instructor);
             }
 
-            foreach (var customer in customers)
+            foreach (var client in clients)
             {
                 byte[] passwordHash, passwordSalt;
                 CreatePasswordHash("password", out passwordHash, out passwordSalt);
 
-                customer.PasswordHash = passwordHash;
-                customer.PasswordSalt = passwordSalt;
-                customer.UserName = customer.UserName.ToLower();
-                _context.Users.Add(customer);
+                client.PasswordHash = passwordHash;
+                client.PasswordSalt = passwordSalt;
+                client.UserName = client.UserName.ToLower();
+                _context.Users.Add(client);
             }
 
             _context.SaveChanges();

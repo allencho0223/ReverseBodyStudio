@@ -14,9 +14,9 @@ using Microsoft.Extensions.Options;
 namespace API.RBS.Controllers
 {
     [Authorize]
-    [Route("api/users/customers/{customerId}/[controller]")]
+    [Route("api/users/clients/{clientId}/[controller]")]
     [ApiController]
-    public class CustomerImagesController : ControllerBase
+    public class ClientImagesController : ControllerBase
     {
         private readonly IRbsRepository _repo;
         private readonly IMapper _mapper;
@@ -25,7 +25,7 @@ namespace API.RBS.Controllers
 
         // The reason for adding IOptions is because 
         // we provided this as a service inside our startup.cs
-        public CustomerImagesController(IRbsRepository repo
+        public ClientImagesController(IRbsRepository repo
             , IMapper mapper, IOptions<CloudinarySettings> cloudinaryConfig)
         {
             _cloudinaryConfig = cloudinaryConfig;
@@ -52,14 +52,22 @@ namespace API.RBS.Controllers
             return Ok(photo);
         }
 
+        [HttpGet]
+        public async Task<IActionResult> GetPhotos()
+        {
+            var clientImages = await _repo.GetPhotos();
+
+            return Ok(clientImages);
+        }
+
         [HttpPost]
-        public async Task<IActionResult> AddPhotoForCustomer(int customerId
+        public async Task<IActionResult> AddPhotoForClient(int clientId
             , [FromForm]PhotoForCreationDto photoForCreationDto)
         {
-            if (customerId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+            if (clientId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
                 return Unauthorized();
 
-            var customerFromRepo = await _repo.GetCustomer(customerId);
+            var clientFromRepo = await _repo.GetClient(clientId);
 
             var file = photoForCreationDto.File;
 
@@ -82,9 +90,9 @@ namespace API.RBS.Controllers
             photoForCreationDto.Url = uploadResult.Uri.ToString();
             photoForCreationDto.PublicId = uploadResult.PublicId;
 
-            var photo = _mapper.Map<CustomerImage>(photoForCreationDto);
+            var photo = _mapper.Map<ClientImage>(photoForCreationDto);
 
-            customerFromRepo.CustomerImages.Add(photo);
+            clientFromRepo.ClientImages.Add(photo);
 
             if (await _repo.SaveAll())
             {
@@ -92,6 +100,35 @@ namespace API.RBS.Controllers
                 return CreatedAtRoute("GetPhoto", new { id = photo.Id }, photoToReturn);
             }
             return BadRequest("사진 업로드에 실패하였습니다.");
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeletePhoto(int clientId, int id)
+        {
+            if (clientId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+                return Unauthorized();
+
+            var client = await _repo.GetClient(clientId);
+
+            var photoFromRepo = await _repo.GetPhoto(id);
+
+            if (photoFromRepo.PublicId != null)
+            {
+                var deleteParams = new DeletionParams(photoFromRepo.PublicId);
+
+                var result = _cloudinary.Destroy(deleteParams);
+
+                if (result.Result == "ok")
+                    _repo.Delete(photoFromRepo);
+            }
+
+            if (photoFromRepo.PublicId == null)
+                _repo.Delete(photoFromRepo);
+
+            if (await _repo.SaveAll())
+                return Ok();
+
+            return BadRequest("사진 삭제에 실패하였습니다");
         }
 
     }

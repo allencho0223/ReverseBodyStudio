@@ -63,8 +63,5 @@ namespace API.RBS.Controllers
             return Ok(image);
         }
 
-        // [HttpPost]
-        // public async Task<IActionResult> 
-
     }
 }

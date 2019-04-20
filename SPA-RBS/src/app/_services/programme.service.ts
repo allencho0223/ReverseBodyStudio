@@ -6,25 +6,18 @@ import { Observable, of } from 'rxjs';
 import { Programme } from '../_models/programme';
 import { catchError } from 'rxjs/operators';
 
-const httpOptions = {
-  headers: new HttpHeaders({
-    'Content-Type':  'application/json',
-    'Authorization': localStorage.getItem('token')
-  })
-};
-
 @Injectable({
   providedIn: 'root'
 })
 
 export class ProgrammeService {
 
-  baseUrl = environment.apiUrl + 'users/customers/';
+  baseUrl = environment.apiUrl + 'users/clients/';
 
   constructor(private http: HttpClient, private alertify: AlertifyService) { }
 
-  addProgramme(customerId: number, programme: Programme) {
-    return this.http.post(this.baseUrl + customerId + '/programmes', programme, httpOptions)
+  addProgramme(clientId: number, programme: Programme) {
+    return this.http.post(this.baseUrl + clientId + '/programmes', programme)
       .pipe(
         catchError(error => {
           this.alertify.error('프로그램 추가에 실패하였습니다.');
@@ -33,8 +26,8 @@ export class ProgrammeService {
       );
   }
 
-  finishProgramme(customerId: number, programmeId: number) {
-    return this.http.delete(this.baseUrl + customerId + '/programmes/' + programmeId, httpOptions)
+  deleteProgramme(clientId: number, programmeId: number) {
+    return this.http.delete(this.baseUrl + clientId + '/programmes/' + programmeId)
       .pipe(
         catchError(error => {
           this.alertify.error('프로그램 삭제에 실패하였습니다');

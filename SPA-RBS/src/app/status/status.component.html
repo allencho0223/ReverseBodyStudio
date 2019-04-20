@@ -1,3 +1,142 @@
-<p>
-  status works!
-</p>
+<div class="container">
+    <!-- Add photos div -->
+    <div class="row">
+        <div class="col-lg-6 offset-lg-6">
+            <h1 class="heading-font">My Status</h1>
+            <div class="row mb-4">
+                <div class="col-lg-4 bodytitle-font">이름</div>
+                <div class="col-lg-8 bodytitle-font">{{ client.name }}</div>
+            </div>
+            <div class="row mb-4">
+                <div class="col-lg-4 bodytitle-font">키</div>
+                <div class="col-lg-8 bodytitle-font">{{ client.height }}cm</div>
+            </div>
+            <div class="row mb-4">
+                <div class="col-lg-4 bodytitle-font">몸무게</div>
+                <div class="col-lg-8 bodytitle-font">{{ client.weight }}kg</div>
+            </div>
+            <div class="row mb-4">
+                <div class="col-lg-4 bodytitle-font">목적</div>
+                <div class="col-lg-8 bodytitle-font">{{ client.purpose }}</div>
+            </div>
+            <div class="row mb-4">
+                <div class="col-lg-12">
+                    <table class="table table-hover table-striped">
+                        <tr>
+                            <th class="content-font text-center">증상</th>
+                            <th class="content-font text-center">디테일</th>
+                        </tr>
+                        <tr *ngFor="let symptom of client.symptoms">
+                            <td class="content-font text-center">{{ symptom.symptomName }}</td>
+                            <td class="content-font text-center">{{ symptom.details }}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="row mb-4">
+                <div class="col-lg-12">
+                    <table class="table table-hover table-striped">
+                        <tr>
+                            <th class="content-font text-center">프로그램</th>
+                            <th class="content-font text-center">설명</th>
+                            <th class="content-font text-center">스케쥴</th>
+                            <th class="content-font text-center">관련영상</th>
+                        </tr>
+                        <tr *ngFor="let programme of client.programmes">
+                            <td class="content-font text-center">{{ programme.programmeName }}</td>
+                            <td class="content-font text-center">{{ programme.description }}</td>
+                            <td class="content-font text-center">{{ programme.sessionTime | date: 'mediumDate' }}</td>
+                            <td class="content-font text-center">
+                                <a href="{{ programme.relatedLink }}"
+                                    target="_blank">
+                                    <button class="btn btn-primary bg-primary">관련영상 보기</button>
+                                </a>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-6 mb-4" *ngFor="let clientImage of client.clientImages">
+                    <div class="text-center bodytitle-font">{{ clientImage.dateTaken | date: 'mediumDate' }}</div>
+                    <img src="{{ clientImage.url }}" alt="" class="img-thumbnail">
+                    <div class="text-center">
+                        <button (click)="deletePhoto(clientImage.id)" class="delete-btn btn btn-lg btn-danger mt-2">
+                            <i class="fa fa-trash-o"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mb-4">
+                <div class="col-lg-12">
+                    <h2 class="subheading-font">Before & After</h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-3">
+                    <h3 class="bodytitle-font text-center">사진 선택</h3>
+                    <div ng2FileDrop [ngClass]="{'nv-file-over': hasBaseDropZoneOver}" (fileOver)="fileOverBase($event)"
+                        [uploader]="uploader" class="card bg-faded p-3 text-center mb-3 my-drop-zone">
+                        <i class="fa fa-upload fa-3x"></i>
+                        사진을 올려놓으세요
+                    </div>
+
+                    Multiple
+                    <input type="file" ng2FileSelect [uploader]="uploader" multiple /><br />
+
+                    Single
+                    <input type="file" ng2FileSelect [uploader]="uploader" />
+                </div>
+
+                <div class="col-lg-9" style="margin-bottom: 40px" *ngIf="uploader?.queue?.length">
+
+                    <h3 class="bodytitle-font">업로드 대기열</h3>
+                    <p>Queue length: {{ uploader?.queue?.length }}</p>
+
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th width="50%">Name</th>
+                                <th>Size</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of uploader.queue">
+                                <td><strong>{{ item?.file?.name }}</strong></td>
+                                <td *ngIf="uploader.options.isHTML5" nowrap>
+                                    {{ item?.file?.size/1024/1024 | number:'.2' }} MB
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div>
+                        <div>
+                            Queue progress:
+                            <div class="progress">
+                                <div class="progress-bar" role="progressbar"
+                                    [ngStyle]="{ 'width': uploader.progress + '%' }">
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-success btn-s" (click)="uploader.uploadAll()"
+                            [disabled]="!uploader.getNotUploadedItems().length">
+                            <span class="fa fa-upload"></span> 업로드
+                        </button>
+                        <button type="button" class="btn btn-warning btn-s" (click)="uploader.cancelAll()"
+                            [disabled]="!uploader.isUploading">
+                            <span class="fa fa-ban"></span> 취소
+                        </button>
+                        <button type="button" class="btn btn-danger btn-s" (click)="uploader.clearQueue()"
+                            [disabled]="!uploader.queue.length">
+                            <span class="fa fa-trash"></span> 삭제
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

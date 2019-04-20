@@ -1,6 +1,6 @@
 namespace API.RBS.Dtos
 {
-    public class SymptomsForListDto
+    public class SymptomForListDto
     {
         public int Id { get; set; }
         public string SymptomName { get; set; }

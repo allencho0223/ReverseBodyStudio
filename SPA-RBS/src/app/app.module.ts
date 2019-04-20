@@ -1,11 +1,12 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { BsDropdownModule, ModalModule, TabsModule } from 'ngx-bootstrap';
+import { BsDropdownModule, ModalModule, TabsModule, BsDatepickerModule } from 'ngx-bootstrap';
 import { RouterModule } from '@angular/router';
 import { JwtModule } from '@auth0/angular-jwt';
+import { FileUploadModule } from 'ng2-file-upload';
 
 import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
@@ -19,8 +20,7 @@ import { ProgrammesComponent } from './programmes/programmes.component';
 import { AuthRegisterComponent } from './auth/auth-register/auth-register.component';
 import { FooterComponent } from './footer/footer.component';
 import { ProfileComponent } from './profile/profile.component';
-import { ManageInstructorsComponent } from './manage/manage-instructors/manage-instructors.component';
-import { ManageCustomersComponent } from './manage/manage-customers/manage-customers.component';
+import { ManageClientsComponent } from './manage/manage-clients/manage-clients.component';
 import { StatusComponent } from './status/status.component';
 
 
@@ -29,6 +29,8 @@ import { ErrorInterceptorProvider } from './_services/error.interceptor';
 import { AuthService } from './_services/auth.service';
 import { AlertifyService } from './_services/alertify.service';
 import { UserService } from './_services/user.service';
+import { ProgrammeService } from './_services/programme.service';
+import { SymptomService } from './_services/symptom.service';
 
 import { appRoutes } from './routes';
 
@@ -36,6 +38,9 @@ import { AuthGuard } from './_guards/auth.guard';
 
 import { ProfileResolver } from './_resolvers/profile.resolver';
 import { PreventUnsavedChanges } from './_guards/prevent-unsaved-changes.guard';
+import { ExperienceService } from './_services/experience.service';
+import { ManageUsersComponent } from './manage/manage-users/manage-users.component';
+
 
 
 export function tokenGetter() {
@@ -56,26 +61,29 @@ export function tokenGetter() {
       ProgrammesComponent,
       FooterComponent,
       ProfileComponent,
-      ManageInstructorsComponent,
-      ManageCustomersComponent,
+      ManageUsersComponent,
+      ManageClientsComponent,
       StatusComponent
    ],
    imports: [
       BrowserModule,
       HttpClientModule,
       FormsModule,
+      ReactiveFormsModule,
       NgbModule.forRoot(),
       BsDropdownModule.forRoot(),
       RouterModule.forRoot(appRoutes),
       TabsModule.forRoot(),
       ModalModule.forRoot(),
+      BsDatepickerModule.forRoot(),
+      FileUploadModule,
       JwtModule.forRoot({
          config: {
             tokenGetter: tokenGetter,
             whitelistedDomains: ['localhost:5000'],
             blacklistedRoutes: ['localhost:5000/api/auth']
          }
-      }),
+      })
    ],
    providers: [
       AuthService,
@@ -84,7 +92,10 @@ export function tokenGetter() {
       AuthGuard,
       UserService,
       ProfileResolver,
-      PreventUnsavedChanges
+      PreventUnsavedChanges,
+      ProgrammeService,
+      SymptomService,
+      ExperienceService
    ],
    bootstrap: [
       AppComponent

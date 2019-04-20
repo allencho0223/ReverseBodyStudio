@@ -1,0 +1,211 @@
+<div class="container">
+  <div class="row">
+    <div class="col-lg-6 offset-lg-6">
+      <h1 class="heading-font">Manage Clients</h1>
+      <h2 class="subheading-font mb-4">{{ instructor.name }} 선생님</h2>
+
+      <!-- Select a client -->
+      <select class="mb-4" name="allocatedClients" (change)="selectClient($event.target.value)">
+        <option [value]="clientNotChosen">회원을 선택하세요</option>
+        <option *ngFor="let client of instructor.clients" value="{{ client.name }}">{{ client.name }}</option>
+      </select>
+
+      <!-- Display chosen client details -->
+      <ng-container *ngIf="!clientNotChosen">
+        <div class="row">
+          <div class="col-lg-4">
+            <label class="bodytitle-font" for="clientName">이름</label>
+          </div>
+          <div class="col-lg-8">
+            <span class="bodytitle-font">{{ client.name }}</span>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-4">
+            <label class="bodytitle-font" for="purpose">목적</label>
+          </div>
+          <div class="col-lg-8">
+            <span class="bodytitle-font">{{ client.purpose }}</span>
+          </div>
+        </div>
+
+        <div class="row mb-4">
+          <div class="col-lg-4">
+            <label class="bodytitle-font" for="symptoms">증상</label>
+          </div>
+          <div class="col-lg-8">
+            <div *ngFor="let symptom of client.symptoms">
+              <p class="bodytitle-font">{{ symptom.symptomName }} ({{ symptom.details }})</p>
+            </div>
+          </div>
+        </div>
+
+        <button (click)="addSymptom()" form="addSymptomForm"
+          class="btn btn-primary bg-primary content-font mr-3 mb-4">증상 추가
+        </button>
+        <button (click)="listSymptoms()" form="deleteSymptomForm"
+          class="btn btn-danger bg-danger content-font mb-4 mr-3">증상 삭제
+        </button>
+        <button (click)="addProgramme()" form="addProgrammeForm"
+          class="btn btn-primary bg-primary content-font mb-4 mr-3">프로그램 추가
+        </button>
+        <button (click)="listProgrammes()" form="deleteProgrammeForm"
+          class="btn btn-danger bg-danger content-font mb-4">프로그램 삭제
+        </button>
+      </ng-container>
+
+      <!-- Add symptom form -->
+      <form #addSymptomForm="ngForm" (ngSubmit)="submitSymptom()"
+        *ngIf="addSymptomClicked && !addProgrammeClicked && !deleteProgrammeClicked">
+        <div class="form-group">
+          <label class="bodytitle-font" for="symptomName">증상</label>
+          <input type="text" name="symptName" id="symptomName" class="form-control"
+            [(ngModel)]="symptom.symptomName">
+        </div>
+        <div class="form-group">
+          <label class="bodytitle-font" for="symtpomDetails">디테일</label>
+          <textarea class="form-control" name="symptDetails" id="symtpomDetails" cols="30"
+            rows="5" [(ngModel)]="symptom.details"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary bg-primary content-font mr-3">추가</button>
+        <button (click)="cancelButton()" type="button" class="btn btn-danger bg-danger content-font">취소</button>
+      </form>
+
+      <!-- Delete symptom select option tag -->
+      <div>
+          <select *ngIf="deleteSymptomClicked && !addSymptomClicked" class="mb-4"
+            name="addedSymptoms" (change)="selectSymptom($event.target.value)">
+            <option class="none">증상을 선택하세요</option>
+            <option *ngFor="let symptom of assignedSymptoms" value="{{ symptom.symptomName }}">
+              {{ symptom.symptomName }}
+            </option>
+          </select>
+        </div>
+  
+        <!-- Delete programme div -->
+        <form #deleteSymptomForm="ngForm" *ngIf="deleteSymptomFormLoad && deleteSymptomClicked">
+          <div class="row">
+            <div class="col-lg-4">
+              <p class="bodytitle-font">증상</p>
+            </div>
+            <div class="col-lg-8">
+              <p class="bodytitle-font">{{ symptom.symptomName }}</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-4">
+              <p class="bodytitle-font">디테일</p>
+            </div>
+            <div class="col-lg-8">
+              <p class="bodytitle-font">{{ symptom.details }}</p>
+            </div>
+          </div>
+  
+          <div class="row">
+            <div class="col-lg-12">
+              <button (click)="deleteSymptom()" type="submit"
+                class="btn btn-primary bg-primary content-font mr-3">삭제</button>
+              <button (click)="cancelButton()" type="button" class="btn btn-danger bg-danger content-font">취소</button>
+            </div>
+          </div>
+        </form>
+      
+      <!-- Add programme form -->
+      <form #addProgrammeForm="ngForm" (ngSubmit)="submitProgramme()"
+        *ngIf="addProgrammeClicked && !deleteProgrammeClicked">
+        <div class="form-group">
+          <label class="bodytitle-font" for="programmeName">프로그램</label>
+          <input type="text" name="progName" id="programmeName" class="form-control"
+            [(ngModel)]="programme.programmeName">
+        </div>
+        <div class="form-group">
+          <label class="bodytitle-font" for="programmeDescription">설명</label>
+          <textarea class="form-control" name="description" id="programmeDescription" name="progDescription" cols="30"
+            rows="5" [(ngModel)]="programme.description"></textarea>
+        </div>
+        <div class="form-group">
+          <label class="bodytitle-font" for="programmeSessionTime">날짜 & 시간</label>
+          <input placement="bottom left" container="" type="text" name="progSessionTime" id="programmeSessionTime" class="form-control"
+          [ngModel]="programme.sessionTime | date: 'mediumDate'" bsDatepicker [bsConfig]="bsConfig">
+          
+        </div>
+        <div class="form-group">
+          <label class="bodytitle-font" for="programmeType">프로그램 타입</label>
+          <input type="text" name="progType" id="programmeType" class="form-control"
+            [(ngModel)]="programme.programmeType">
+        </div>
+        <div class="form-group">
+          <label class="bodytitle-font" for="programmeRelatedLink">관련 링크</label>
+          <input type="text" name="progRelatedLink" id="programmeRelatedLink" class="form-control"
+            [(ngModel)]="programme.relatedLink">
+        </div>
+        <button type="submit" class="btn btn-primary bg-primary content-font mr-3">추가</button>
+        <button (click)="cancelButton()" type="button" class="btn btn-danger bg-danger content-font">취소</button>
+      </form>
+
+      <!-- Delete programme select option tag -->
+      <div>
+        <select *ngIf="deleteProgrammeClicked && !addProgrammeClicked && !photosHidden" class="mb-4"
+          name="addedProgrammes" (change)="selectProgramme($event.target.value)">
+          <option class="none">프로그램을 선택하세요</option>
+          <option *ngFor="let programme of assignedProgrammes" value="{{ programme.programmeName }}">
+            {{ programme.programmeName }} ({{ programme.sessionTime | date: 'mediumDate' }})</option>
+        </select>
+      </div>
+
+      <!-- Delete programme div -->
+      <form #deleteProgrammeForm="ngForm" *ngIf="deleteProgrammeFormLoad && deleteProgrammeClicked">
+        <div class="row">
+          <div class="col-lg-4">
+            <p class="bodytitle-font">프로그램</p>
+          </div>
+          <div class="col-lg-8">
+            <p class="bodytitle-font">{{ programme.programmeName }}</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-4">
+            <p class="bodytitle-font">설명</p>
+          </div>
+          <div class="col-lg-8">
+            <p class="bodytitle-font">{{ programme.description }}</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-4">
+            <p class="bodytitle-font">날짜 & 시간</p>
+          </div>
+          <div class="col-lg-8">
+            <p class="bodytitle-font">{{ programme.sessionTime | date: 'mediumDate' }}</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-4">
+            <p class="bodytitle-font">프로그램 타입</p>
+          </div>
+          <div class="col-lg-8">
+            <p class="bodytitle-font">{{ programme.programmeType }}</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-4">
+            <p class="bodytitle-font">관련 링크</p>
+          </div>
+          <div class="col-lg-8">
+            <p class="bodytitle-font">{{ programme.relatedLink }}</p>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-12">
+            <button (click)="deleteProgramme()" type="submit"
+              class="btn btn-primary bg-primary content-font mr-3">삭제</button>
+            <button (click)="cancelButton()" type="button" class="btn btn-danger bg-danger content-font">취소</button>
+          </div>
+        </div>
+      </form>
+
+    </div>
+  </div>
+</div>

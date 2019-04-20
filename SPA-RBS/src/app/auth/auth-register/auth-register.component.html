@@ -1,27 +1,352 @@
 <div class="container">
   <div class="row">
     <div class="col-lg-6 offset-lg-6">
-      <form #registerForm="ngForm" (ngSubmit)="register()">
+      <h1 class="heading-font">Sign Up</h1>
+      <select class="mb-4" name="chooseUserType" (change)="selectUserType($event.target.value)">
+        <option value="None">유저타입을 선택하세요</option>
+        <option value="Client">회원</option>
+        <option value="Instructor">강사</option>
+      </select>
 
-        <h1 class="heading-font">Sign Up</h1>
+      <!-- Client -->
+      <div *ngIf="userType === 'Client'">
+        <form [formGroup]="registerForm" (ngSubmit)="register()">
 
-        <div class="textbox form-group">
-          <i class="fa fa-user mt-2"></i>
-          <input type="text" class="form-control" placeholder="Username" required name="userName"
-            [(ngModel)]="model.userName">
-        </div>
+          <div class="form-group">
+            <label class="control-label" style="margin-right: 10px">성별: </label>
+            <label class="radio-inline">
+              <input type="radio" value="male" formControlName="gender" class="mr-2">남자
+            </label>
+            <label class="radio-inline ml-3">
+              <input class="mr-3" type="radio" value="female" formControlName="gender" class="mr-2">여자
+            </label>
+          </div>
+          <div class="form-group">
+            <div class="row">
+              <div class="col-lg-4">
+                <span class="bodytitle-font">회원 타입</span>
+              </div>
+              <div class="col-lg-8">
+                <input readonly type="text" [ngClass]="{ 'is-invalid': registerForm.get('userType').errors
+                  && registerForm.get('userType').touched }" class="form-control is-invalid"
+                  formControlName="userType">
+              </div>
+            </div>
 
-        <div class="textbox form-group">
-          <i class="fa fa-lock mt-2"></i>
-          <input type="password" class="form-control" placeholder="Password" required name="password"
-            [(ngModel)]="model.password">
-        </div>
+          </div>
 
-        <div class="form-group">
-          <input class="btn btn-primary submit-btn" type="submit" value="Sign Up" style="margin-right: 10px">
-          <input class="btn btn-danger cancel-btn" type="button" value="Cancel" (click)="cancel()">
-        </div>
-      </form>
+          <div class="form-group">
+            <div class="row">
+              <div class="col-lg-4">
+                <span class="bodytitle-font">아이디</span>
+              </div>
+              <div class="col-lg-8">
+                <input type="text" [ngClass]="{ 'is-invalid': registerForm.get('userName').errors
+                      && registerForm.get('userName').touched }" class="form-control is-invalid"
+                  formControlName="userName">
+                <div class="invalid-feedback feedback-font">아이디를 설정해 주세요.</div>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="form-group">
+            <div class="row">
+              <div class="col-lg-4">
+                <span class="bodytitle-font">비밀번호</span>
+              </div>
+              <div class="col-lg-8">
+                <input type="password" [ngClass]="{ 'is-invalid': registerForm.get('password').errors
+                  && registerForm.get('password').touched }" class="form-control"
+                  formControlName="password">
+                <div class="invalid-feedback feedback-font" *ngIf="registerForm.get('password').hasError('required')
+                  && registerForm.get('password').touched">비밀번호를 설정해 주세요.
+                </div>
+                <div class="invalid-feedback feedback-font" *ngIf="registerForm.get('password').hasError('minlength')
+                    && registerForm.get('password').touched">비밀번호는 4글자 이상이어야 합니다.
+                </div>
+                <div class="invalid-feedback feedback-font" *ngIf="registerForm.get('password').hasError('maxlength')
+                    && registerForm.get('password').touched">비밀번호는 8글자 이하여야 합니다.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="row">
+              <div class="col-lg-4">
+                <span class="bodytitle-font">비밀번호 확인</span>
+              </div>
+              <div class="col-lg-8">
+                <input type="password" [ngClass]="{ 'is-invalid': registerForm.get('confirmPassword').errors
+                  && registerForm.get('confirmPassword').touched
+                  || registerForm.get('confirmPassword').touched
+                  && registerForm.hasError('mismatch') }" class="form-control"
+                  formControlName="confirmPassword">
+                <div class="invalid-feedback feedback-font" *ngIf="registerForm.get('confirmPassword').hasError('required')
+                  && registerForm.get('confirmPassword').touched">비밀번호를 설정해 주세요.
+                </div>
+                <div class="invalid-feedback feedback-font" *ngIf="registerForm.hasError('mismatch')
+                  && registerForm.get('confirmPassword').touched">비밀번호가 일치하지 않습니다.
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="form-group">
+            <div class="row">
+              <div class="col-lg-4">
+                <span class="bodytitle-font">이름</span>
+              </div>
+              <div class="col-lg-8">
+                <input [ngClass]="{'is-invalid': registerForm.get('name').errors
+                  && registerForm.get('name').touched }" class="form-control"
+                  formControlName="name">
+                <div class="invalid-feedback feedback-font" *ngIf="registerForm.get('name').touched
+                    && registerForm.get('name').hasError('required')">
+                  성함을 입력하여 주세요.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="row">
+              <div class="col-lg-4">
+                <span class="bodytitle-font">연락처</span>
+              </div>
+              <div class="col-lg-8">
+                <input [ngClass]="{'is-invalid': registerForm.get('phone').errors
+                  && registerForm.get('phone').touched }" class="form-control"
+                  formControlName="phone">
+                <div class="invalid-feedback feedback-font" *ngIf="registerForm.get('phone').touched
+                    && registerForm.get('phone').hasError('required')">
+                  연락처를 입력하여 주세요.
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="form-group">
+            <div class="row">
+              <div class="col-lg-4">
+                <span class="bodytitle-font">이메일</span>
+              </div>
+              <div class="col-lg-8">
+                <input [ngClass]="{'is-invalid': registerForm.get('email').errors
+                  && registerForm.get('email').touched }" class="form-control"
+                  formControlName="email">
+                <div class="invalid-feedback feedback-font" *ngIf="registerForm.get('email').touched
+                    && registerForm.get('email').hasError('required')">
+                  이메일 주소를 입력하여 주세요.
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="form-group">
+            <div class="row">
+              <div class="col-lg-4">
+                <span class="bodytitle-font">주소</span>
+              </div>
+              <div class="col-lg-8">
+                <input [ngClass]="{'is-invalid': registerForm.get('address').errors
+                  && registerForm.get('address').touched }" class="form-control"
+                  formControlName="address">
+                <div class="invalid-feedback feedback-font" *ngIf="registerForm.get('address').touched
+                    && registerForm.get('address').hasError('required')">
+                  주소를 입력하여 주세요.
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="form-group">
+            <div class="row">
+              <div class="col-lg-4">
+                <span class="bodytitle-font">생년월일</span>
+              </div>
+              <div class="col-lg-8">
+                <input container="" placement="bottom left" [ngClass]="{'is-invalid': registerForm.get('dateOfBirth').errors
+                  && registerForm.get('dateOfBirth').touched}" class="form-control"
+                  formControlName="dateOfBirth" type="text" bsDatepicker [bsConfig]="bsConfig">
+                <div class="invalid-feedback feedback-font" *ngIf="registerForm.get('dateOfBirth').touched
+                    && registerForm.get('dateOfBirth').hasError('required')">
+                  생년월일을 입력하여 주세요.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="row">
+              <div class="col-lg-4">
+                <span class="bodytitle-font">키</span>
+              </div>
+              <div class="col-lg-8">
+                <input [ngClass]="{'is-invalid': registerForm.get('height').errors
+                  && registerForm.get('height').touched }" class="form-control"
+                  formControlName="height">
+                <div class="invalid-feedback feedback-font" *ngIf="registerForm.get('height').touched
+                    && registerForm.get('height').hasError('required')">
+                  키를 입력하여 주세요.
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="form-group">
+            <div class="row">
+              <div class="col-lg-4">
+                <span class="bodytitle-font">몸무게</span>
+              </div>
+              <div class="col-lg-8">
+                <input [ngClass]="{'is-invalid': registerForm.get('weight').errors
+                  && registerForm.get('weight').touched }" class="form-control"
+                  formControlName="weight">
+                <div class="invalid-feedback feedback-font" *ngIf="registerForm.get('weight').touched
+                    && registerForm.get('weight').hasError('required')">
+                  몸무게를 입력하여 주세요.
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="form-group">
+            <div class="row">
+              <div class="col-lg-4">
+                <span class="bodytitle-font">운동목적</span>
+              </div>
+              <div class="col-lg-8">
+                <input [ngClass]="{'is-invalid': registerForm.get('purpose').errors
+                  && registerForm.get('purpose').touched }" class="form-control"
+                  formControlName="purpose">
+                <div class="invalid-feedback feedback-font" *ngIf="registerForm.get('purpose').touched
+                    && registerForm.get('purpose').hasError('required')">
+                  목적을 입력하여 주세요.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <input [disabled]="!registerForm.valid" class="btn btn-primary bg-primary btn-lg submit-btn" type="submit" value="Sign Up"
+              style="margin-right: 10px">
+            <input class="btn btn-danger bg-danger btn-lg cancel-btn" type="button" value="Cancel" (click)="cancel()">
+          </div>
+        </form>
+      </div>
+
+
+      <!-- Instructor -->
+      <div *ngIf="userType === 'Instructor'">
+        <form [formGroup]="registerForm" (ngSubmit)="register()">
+
+          <div class="form-group">
+            <div class="row">
+              <div class="col-lg-4">
+                <span class="bodytitle-font">회원 타입</span>
+              </div>
+              <div class="col-lg-8">
+                <input readonly type="text" [ngClass]="{ 'is-invalid': registerForm.get('userType').errors
+                  && registerForm.get('userType').touched }" class="form-control is-invalid"
+                  formControlName="userType">
+              </div>
+            </div>
+
+          </div>
+
+          <div class="form-group">
+            <div class="row">
+              <div class="col-lg-4">
+                <span class="bodytitle-font">아이디</span>
+              </div>
+              <div class="col-lg-8">
+                <input type="text" [ngClass]="{ 'is-invalid': registerForm.get('userName').errors
+                  && registerForm.get('userName').touched }" class="form-control is-invalid"
+                  formControlName="userName">
+                <div class="invalid-feedback feedback-font">아이디를 설정해 주세요.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="row">
+              <div class="col-lg-4">
+                <span class="bodytitle-font">이름</span>
+              </div>
+              <div class="col-lg-8">
+                <input [ngClass]="{'is-invalid': registerForm.get('name').errors
+                  && registerForm.get('name').touched }" class="form-control"
+                  formControlName="name">
+                <div class="invalid-feedback feedback-font" *ngIf="registerForm.get('name').touched
+                      && registerForm.get('name').hasError('required')">
+                  성함을 입력하여 주세요.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="row">
+              <div class="col-lg-4">
+                <span class="bodytitle-font">비밀번호</span>
+              </div>
+              <div class="col-lg-8">
+                <input type="password" [ngClass]="{ 'is-invalid': registerForm.get('password').errors
+                  && registerForm.get('password').touched }" class="form-control"
+                  formControlName="password">
+                <div class="invalid-feedback feedback-font" *ngIf="registerForm.get('password').hasError('required')
+                  && registerForm.get('password').touched">비밀번호를 설정해 주세요.
+                </div>
+                <div class="invalid-feedback feedback-font" *ngIf="registerForm.get('password').hasError('minlength')
+                  && registerForm.get('password').touched">비밀번호는 4글자 이상이어야 합니다.
+                </div>
+                <div class="invalid-feedback feedback-font" *ngIf="registerForm.get('password').hasError('maxlength')
+                  && registerForm.get('password').touched">비밀번호는 8글자 이하여야 합니다.
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="form-group">
+            <div class="row">
+              <div class="col-lg-4">
+                <span class="bodytitle-font">비밀번호 확인</span>
+              </div>
+              <div class="col-lg-8">
+                <input type="password" [ngClass]="{ 'is-invalid': registerForm.get('confirmPassword').errors
+                  && registerForm.get('confirmPassword').touched
+                  || registerForm.get('confirmPassword').touched
+                  && registerForm.hasError('mismatch') }" class="form-control"
+                  formControlName="confirmPassword">
+                <div class="invalid-feedback feedback-font" *ngIf="registerForm.get('confirmPassword').hasError('required')
+                  && registerForm.get('confirmPassword').touched">비밀번호를 설정해 주세요.
+                </div>
+                <div class="invalid-feedback feedback-font" *ngIf="registerForm.hasError('mismatch')
+                  && registerForm.get('confirmPassword').touched">비밀번호가 일치하지 않습니다.
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+
+
+          <div class="form-group">
+            <input [disabled]="!registerForm.valid" class="btn btn-primary bg-primary btn-lg submit-btn" type="submit" value="Sign Up"
+              style="margin-right: 10px">
+            <input class="btn btn-danger bg-danger btn-lg cancel-btn" type="button" value="Cancel" (click)="cancel()">
+          </div>
+        </form>
+      </div>
 
     </div>
   </div>

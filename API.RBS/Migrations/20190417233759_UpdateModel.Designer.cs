@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API.RBS.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20190413091728_ProgrammeModelUpdate")]
-    partial class ProgrammeModelUpdate
+    [Migration("20190417233759_UpdateModel")]
+    partial class UpdateModel
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -18,12 +18,12 @@ namespace API.RBS.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.1.1-rtm-30846");
 
-            modelBuilder.Entity("API.RBS.Models.CustomerImage", b =>
+            modelBuilder.Entity("API.RBS.Models.ClientImage", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("CustomerId");
+                    b.Property<int>("ClientId");
 
                     b.Property<DateTime>("DateTaken");
 
@@ -35,9 +35,9 @@ namespace API.RBS.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CustomerId");
+                    b.HasIndex("ClientId");
 
-                    b.ToTable("CustomerImages");
+                    b.ToTable("ClientImages");
                 });
 
             modelBuilder.Entity("API.RBS.Models.Experience", b =>
@@ -79,7 +79,7 @@ namespace API.RBS.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("CustomerId");
+                    b.Property<int>("ClientId");
 
                     b.Property<string>("Description");
 
@@ -93,7 +93,7 @@ namespace API.RBS.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CustomerId");
+                    b.HasIndex("ClientId");
 
                     b.ToTable("Programmes");
                 });
@@ -103,7 +103,7 @@ namespace API.RBS.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("CustomerId");
+                    b.Property<int>("ClientId");
 
                     b.Property<string>("Details");
 
@@ -111,7 +111,7 @@ namespace API.RBS.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CustomerId");
+                    b.HasIndex("ClientId");
 
                     b.ToTable("Symptoms");
                 });
@@ -143,7 +143,7 @@ namespace API.RBS.Migrations
                     b.HasDiscriminator<string>("Discriminator").HasValue("User");
                 });
 
-            modelBuilder.Entity("API.RBS.Models.Customer", b =>
+            modelBuilder.Entity("API.RBS.Models.Client", b =>
                 {
                     b.HasBaseType("API.RBS.Models.User");
 
@@ -167,9 +167,9 @@ namespace API.RBS.Migrations
 
                     b.HasIndex("InstructorId");
 
-                    b.ToTable("Customer");
+                    b.ToTable("Client");
 
-                    b.HasDiscriminator().HasValue("Customer");
+                    b.HasDiscriminator().HasValue("Client");
                 });
 
             modelBuilder.Entity("API.RBS.Models.Instructor", b =>
@@ -182,11 +182,11 @@ namespace API.RBS.Migrations
                     b.HasDiscriminator().HasValue("Instructor");
                 });
 
-            modelBuilder.Entity("API.RBS.Models.CustomerImage", b =>
+            modelBuilder.Entity("API.RBS.Models.ClientImage", b =>
                 {
-                    b.HasOne("API.RBS.Models.Customer", "Customer")
-                        .WithMany("CustomerImages")
-                        .HasForeignKey("CustomerId")
+                    b.HasOne("API.RBS.Models.Client", "Client")
+                        .WithMany("ClientImages")
+                        .HasForeignKey("ClientId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
@@ -200,24 +200,24 @@ namespace API.RBS.Migrations
 
             modelBuilder.Entity("API.RBS.Models.Programme", b =>
                 {
-                    b.HasOne("API.RBS.Models.Customer", "Customer")
+                    b.HasOne("API.RBS.Models.Client", "Client")
                         .WithMany("Programmes")
-                        .HasForeignKey("CustomerId")
+                        .HasForeignKey("ClientId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("API.RBS.Models.Symptom", b =>
                 {
-                    b.HasOne("API.RBS.Models.Customer", "Customer")
+                    b.HasOne("API.RBS.Models.Client", "Client")
                         .WithMany("Symptoms")
-                        .HasForeignKey("CustomerId")
+                        .HasForeignKey("ClientId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("API.RBS.Models.Customer", b =>
+            modelBuilder.Entity("API.RBS.Models.Client", b =>
                 {
                     b.HasOne("API.RBS.Models.Instructor", "Instructor")
-                        .WithMany("Customers")
+                        .WithMany("Clients")
                         .HasForeignKey("InstructorId");
                 });
 #pragma warning restore 612, 618

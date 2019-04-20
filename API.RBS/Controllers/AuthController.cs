@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using API.RBS.Data;
 using API.RBS.Dtos;
 using API.RBS.Models;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -18,8 +19,10 @@ namespace API.RBS.Controllers
     {
         private readonly IAuthRepository _repo;
         private readonly IConfiguration _config;
-        public AuthController(IAuthRepository repo, IConfiguration config)
+        private readonly IMapper _mapper;
+        public AuthController(IAuthRepository repo, IConfiguration config, IMapper mapper)
         {
+            _mapper = mapper;
             _config = config;
             _repo = repo;
         }
@@ -31,20 +34,27 @@ namespace API.RBS.Controllers
             // When without [ApiController] Data Annotation above the class
             // if (!ModelState.IsValid)
             //     return BadRequest(ModelState);
-
+            
             userForRegisterDto.UserName = userForRegisterDto.UserName.ToLower();
 
             if (await _repo.UserExists(userForRegisterDto.UserName))
                 return BadRequest("이미 사용중인 아이디입니다.");
 
-            var userToCreate = new User
+            var userToCreate = _mapper.Map<User>(userForRegisterDto);
+        
+            if (userForRegisterDto.userType.Equals("Client"))
             {
-                UserName = userForRegisterDto.UserName,
-            };
+                userToCreate = _mapper.Map<Client>(userForRegisterDto);
+            }
+            else if (userForRegisterDto.userType.Equals("Instructor"))
+            {
+                userToCreate = _mapper.Map<Instructor>(userForRegisterDto);
+            }
 
             var createdUser = await _repo.Register(userToCreate, userForRegisterDto.Password);
-
-            return StatusCode(201);
+            var userToReturn = _mapper.Map<UserForListDto>(createdUser);
+            return CreatedAtRoute("GetUser"
+                , new {controller = "Users", id = createdUser.Id}, userToReturn);
         }
 
         [HttpPost("login")]

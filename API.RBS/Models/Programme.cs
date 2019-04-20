@@ -12,7 +12,7 @@ namespace API.RBS.Models
         public string Description { get; set; }
         public DateTime SessionTime { get; set; }
         public string ProgrammeType { get; set; }
-        public int CustomerId { get; set; }
-        public Customer Customer { get; set; }
+        public int ClientId { get; set; }
+        public Client Client { get; set; }
     }
 }

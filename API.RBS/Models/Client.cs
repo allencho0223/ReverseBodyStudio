@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace API.RBS.Models
 {
-    public class Customer : User
+    public class Client : User
     {
         public string Phone { get; set; }
         public string Email { get; set; }
@@ -16,7 +16,7 @@ namespace API.RBS.Models
         public int? InstructorId { get; set; }
         public Instructor Instructor { get; set; }
         public ICollection<Symptom> Symptoms { get; set; }
-        public ICollection<CustomerImage> CustomerImages { get; set; }
-        public ICollection<Programme> Programmes { get; set; }
+        public ICollection<ClientImage> ClientImages { get; set; }
+        public ICollection<Programme> Programmes { get; set; }        
     }
 }

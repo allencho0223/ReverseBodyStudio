@@ -39,7 +39,7 @@ namespace API.RBS.Controllers
             return Ok(usersToReturn);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id}", Name = "GetUser")]
         public async Task<IActionResult> GetUser(int id)
         {
             var user = await _repo.GetUser(id);
@@ -69,27 +69,27 @@ namespace API.RBS.Controllers
             return Ok(instructorToReturn);
         }
 
-        [HttpGet("customers")]
-        public async Task<IActionResult> GetCustomers()
+        [HttpGet("clients")]
+        public async Task<IActionResult> GetClients()
         {
-            var customers = await _repo.GetCustomers();
+            var clients = await _repo.GetClients();
 
-            var customersToReturn = _mapper.Map<IEnumerable<CustomerForListDto>>(customers);
+            var clientsToReturn = _mapper.Map<IEnumerable<ClientForListDto>>(clients);
 
-            return Ok(customersToReturn);
+            return Ok(clientsToReturn);
         }
 
-        [HttpGet("customers/{id}")]
-        public async Task<IActionResult> GetCustomer(int id)
+        [HttpGet("clients/{id}")]
+        public async Task<IActionResult> GetClient(int id)
         {
-            var customer = await _repo.GetCustomer(id);
+            var client = await _repo.GetClient(id);
 
-            var customerToReturn = _mapper.Map<CustomerForListDto>(customer);
+            var clientToReturn = _mapper.Map<ClientForListDto>(client);
 
-            return Ok(customerToReturn);
+            return Ok(clientToReturn);
         }
 
-        [HttpPut("customers/{id}")]
+        [HttpPut("clients/{id}")]
         public async Task<IActionResult> UpdateUser(int id, UserForUpdateDto UserForUpdateDto)
         {
             // FindFirst method to check if the user is the current user that's passed to the token to our server
@@ -99,9 +99,9 @@ namespace API.RBS.Controllers
             if (id != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
                 return Unauthorized();
 
-            var customerFromRepo = await _repo.GetCustomer(id);
+            var clientFromRepo = await _repo.GetClient(id);
 
-            _mapper.Map(UserForUpdateDto, customerFromRepo);
+            _mapper.Map(UserForUpdateDto, clientFromRepo);
 
             if (await _repo.SaveAll())
                 return NoContent();

@@ -10,7 +10,7 @@ namespace API.RBS.Dtos
         public string Description { get; set; }
         public DateTime DateTaken { get; set; }
         public string PublicId { get; set; }
-        public int CustomerId { get; set; }
+        public int ClientId { get; set; }
         public PhotoForCreationDto()
         {
             DateTaken = DateTime.Now;

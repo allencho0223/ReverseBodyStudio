@@ -23,35 +23,41 @@ namespace API.RBS.Data
             _context.Remove(entity);
         }
 
-        public async Task<Customer> GetCustomer(int id)
+        public async Task<Client> GetClient(int id)
         {
-            var customer = await _context.Customers
+            var client = await _context.Clients
                 .Include(s => s.Symptoms)
-                .Include(c => c.CustomerImages)
+                .Include(c => c.ClientImages)
                 .Include(p => p.Programmes)
                 .FirstOrDefaultAsync(c => c.Id == id);
-            return customer;
+            return client;
         }
 
-        public async Task<IEnumerable<Customer>> GetCustomers()
+        public async Task<IEnumerable<Client>> GetClients()
         {
-            var customers = await _context.Customers
+            var clients = await _context.Clients
                 .Include(s => s.Symptoms)
-                .Include(c => c.CustomerImages)
+                .Include(c => c.ClientImages)
                 .Include(p => p.Programmes)
                 .ToListAsync();
 
-            return customers;
+            return clients;
+        }
+
+        public async Task<IEnumerable<Experience>> GetExperiences()
+        {
+            var experiences = await _context.Experiences.ToListAsync();
+            return experiences;
         }
 
         public async Task<Instructor> GetInstructor(int id)
         {
             var instructor = await _context.Instructors
-                .Include(c => c.Customers)
+                .Include(c => c.Clients)
                     .ThenInclude(s => s.Symptoms)
-                .Include(c => c.Customers)
-                    .ThenInclude(ci => ci.CustomerImages)
-                .Include(c => c.Customers)
+                .Include(c => c.Clients)
+                    .ThenInclude(ci => ci.ClientImages)
+                .Include(c => c.Clients)
                     .ThenInclude(p => p.Programmes)
                 .Include(e => e.Experiences)
                 .FirstOrDefaultAsync(i => i.Id == id);
@@ -62,22 +68,29 @@ namespace API.RBS.Data
         public async Task<IEnumerable<Instructor>> GetInstructors()
         {
             var instructors = await _context.Instructors
-                .Include(c => c.Customers)
+                .Include(c => c.Clients)
                     .ThenInclude(s => s.Symptoms)
-                .Include(c => c.Customers)
-                    .ThenInclude(ci => ci.CustomerImages)
-                .Include(c => c.Customers)
+                .Include(c => c.Clients)
+                    .ThenInclude(ci => ci.ClientImages)
+                .Include(c => c.Clients)
                     .ThenInclude(p => p.Programmes)
                 .Include(e => e.Experiences)
                 .ToListAsync();
             return instructors;
         }
 
-        public async Task<CustomerImage> GetPhoto(int id)
+        public async Task<ClientImage> GetPhoto(int id)
         {
-            var photo = await _context.CustomerImages.FirstOrDefaultAsync(p => p.Id == id);
+            var photo = await _context.ClientImages.FirstOrDefaultAsync(p => p.Id == id);
 
             return photo;
+        }
+
+        public async Task<IEnumerable<ClientImage>> GetPhotos()
+        {
+            var photos = await _context.ClientImages.ToListAsync();
+
+            return photos;
         }
 
         public async Task<Programme> GetProgramme(int id)
@@ -85,6 +98,13 @@ namespace API.RBS.Data
             var programme = await _context.Programmes.FirstOrDefaultAsync(p => p.Id == id);
 
             return programme;
+        }
+
+        public async Task<Symptom> GetSymptom(int id)
+        {
+            var symptom = await _context.Symptoms.FirstOrDefaultAsync(s => s.Id == id);
+
+            return symptom;
         }
 
         public async Task<User> GetUser(int id)

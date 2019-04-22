@@ -6,7 +6,7 @@
   </div>
   <div class="row">
     <div class="col-lg-6 offset-lg-6">
-      <div class="bna-container" *ngFor="let bnaImage of bnaImages">
+      <div class="bna-container mt-4" *ngFor="let bnaImage of bnaImages">
         <div class="col-lg-6 img-before">
             <p class="bodytitle-font text-center">{{ bnaImage.name.split(',')[0] }}</p>
             <img class="bna-image" src="{{ bnaImage.imageSrc.split(',')[0] }}" alt="{{ bnaImage.name.split(',')[0] }}">
@@ -18,7 +18,7 @@
         </div>
         
       </div>
-      <div class="btn-aligner text-center">
+      <div class="btn-aligner text-center mt-4">
         <button class="btn btn-lg btn-primary"><a
             href="http://blog.naver.com/PostList.nhn?blogId=reverse-gym&from=postList&categoryNo=29"
             target="_blank">더보러가기</a></button>

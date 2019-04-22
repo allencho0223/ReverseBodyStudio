@@ -85,8 +85,8 @@ export class AuthRegisterComponent implements OnInit {
         name: ['', Validators.required],
         password: [
           '',
-          Validators.required,
           [
+            Validators.required,
             Validators.pattern('^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*|<>?]).{8,16}$')
           ]
         ],
@@ -128,6 +128,27 @@ export class AuthRegisterComponent implements OnInit {
       } else {
         this.isEmailUnique = true;
       }
+
+      this.isHeightValid = false;
+      this.isWeightValid = false;
+
+      if (isNaN(this.registerForm.value.height)) {
+        this.alertify.error('키는 숫자 형식만 입력 가능합니다.');
+      } else if (+this.registerForm.value.height > 250
+          || +this.registerForm.value.height < 0) {
+        this.alertify.error('키는 0 부터 250까지 설정 가능합니다.');
+      } else {
+        this.isHeightValid = true;
+      }
+
+      if (isNaN(this.registerForm.value.weight)) {
+        this.alertify.error('몸무게는 숫자 형식만 입력 가능합니다.');
+      } else if (+this.registerForm.value.weight > 250
+          || +this.registerForm.value.weight < 0) {
+        this.alertify.error('몸무게는 0 부터 250까지 설정 가능합니다.');
+      } else {
+        this.isWeightValid = true;
+      }
     }
 
     if (typeof (this.users.filter(x => x.userName === this.registerForm.value.userName)[0])
@@ -138,33 +159,16 @@ export class AuthRegisterComponent implements OnInit {
       this.isUserNameUnique = true;
     }
 
-    this.isHeightValid = false;
-    this.isWeightValid = false;
 
-    if (isNaN(this.registerForm.value.height)) {
-      this.alertify.error('키는 숫자 형식만 입력 가능합니다.');
-    } else if (+this.registerForm.value.height > 250
-        || +this.registerForm.value.height < 0) {
-      this.alertify.error('키는 0 부터 250까지 설정 가능합니다.');
-    } else {
-      this.isHeightValid = true;
-    }
-
-    if (isNaN(this.registerForm.value.weight)) {
-      this.alertify.error('몸무게는 숫자 형식만 입력 가능합니다.');
-    } else if (+this.registerForm.value.weight > 250
-        || +this.registerForm.value.weight < 0) {
-      this.alertify.error('몸무게는 0 부터 250까지 설정 가능합니다.');
-    } else {
-      this.isWeightValid = true;
-    }
   }
 
   register() {
 
     this.checkRegisterValidation();
 
-    if (this.isHeightValid && this.isWeightValid && this.isUserNameUnique) {
+    if ((this.isHeightValid && this.isWeightValid
+      && this.isUserNameUnique && this.isEmailUnique && this.userType === 'Client')
+      || (this.isUserNameUnique && this.userType === 'Instructor')) {
       return this.authService.register(this.registerForm.value).subscribe(() => {
         this.alertify.success('계정이 성공적으로 등록되었습니다.');
       }, error => {

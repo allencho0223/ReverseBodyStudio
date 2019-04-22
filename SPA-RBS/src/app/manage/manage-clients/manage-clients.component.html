@@ -127,7 +127,7 @@
         <div class="form-group">
           <label class="bodytitle-font" for="programmeSessionTime">날짜</label>
           <input placement="bottom left" container="" type="text" name="progSessionTime" id="programmeSessionTime" class="form-control"
-          [ngModel]="programme.sessionTime | date: 'mediumDate'" bsDatepicker [bsConfig]="bsConfig">
+          [(ngModel)]="programme.sessionTime" bsDatepicker [bsConfig]="bsConfig">
           
         </div>
         <div class="form-group">

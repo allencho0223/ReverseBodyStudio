@@ -10,13 +10,13 @@
                     <ng-template ngbTabContent>
                         <img class="instructor-bg mt-4" src="../../{{ instructor.imagePath.split(',')[0] }}"
                             alt="{{ instructor.name }}">
-                        <div style="margin-top: 20px" class="exp-container" *ngFor="let experience of instructor.experiences">
+                        <div class="exp-container mt-4" *ngFor="let experience of instructor.experiences">
                             <p class="exp-style">
                                 {{ experience.description }}
                             </p>
                         </div>
 
-                        <button (click)="openModal(instructorTemplate)" type="button" class="btn btn-lg btn-primary bg-primary">Read
+                        <button (click)="openModal(instructorTemplate)" type="button" class="btn btn-lg btn-primary bg-primary mt-4">Read
                             More</button>
                     </ng-template>
 

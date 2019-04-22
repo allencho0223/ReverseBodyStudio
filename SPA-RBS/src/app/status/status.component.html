@@ -47,7 +47,7 @@
                             <td class="content-font text-center">{{ programme.description }}</td>
                             <td class="content-font text-center">{{ programme.sessionTime | date: 'mediumDate' }}</td>
                             <td class="content-font text-center">
-                                <a href="{{ programme.relatedLink }}" target="_blank">
+                                <a *ngIf="programme.relatedLink !== null" href="{{ programme.relatedLink }}" target="_blank">
                                     <button class="btn btn-primary bg-primary">관련영상 보기</button>
                                 </a>
                             </td>
@@ -63,14 +63,12 @@
             </div>
             
             <div class="row">
-                <div class="col-lg-6 mb-4" *ngFor="let clientImage of clientImages">
+                <div class="col-xs-6 col-lg-6 col-md-6 mb-4" *ngFor="let clientImage of clientImages">
                     <div class="text-center bodytitle-font">{{ clientImage.dateTaken | date: 'mediumDate' }}</div>
-                    <img src="{{ clientImage.url }}" alt="" class="img-thumbnail">
-                    <div class="text-center">
+                    <img src="{{ clientImage.url }}" class="img-thumbnail">
                         <button (click)="deletePhoto(clientImage.id)" class="delete-btn btn btn-lg btn-danger mt-2">
                             <i class="fa fa-trash-o"></i>
                         </button>
-                    </div>
                 </div>
             </div>
 

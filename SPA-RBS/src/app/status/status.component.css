@@ -9,3 +9,9 @@
 input[type=file] {
     color: transparent;
 }
+
+@media screen and (max-width: 768px) {
+    .delete-btn {
+        width: 360px;
+    }
+}

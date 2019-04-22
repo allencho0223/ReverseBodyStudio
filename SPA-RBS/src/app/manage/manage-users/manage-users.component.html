@@ -1,3 +1,27 @@
-<p>
-  manage-users works!
-</p>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-6 offset-lg-6">
+      <h1 class="heading-font">Manage Users</h1>
+      <ngb-tabset justify="fill">
+        <ngb-tab>
+          <ng-template ngbTabTitle><b>유저 타입 변경</b></ng-template>
+          <ng-template ngbTabContent>
+              <app-edit-roles></app-edit-roles>
+          </ng-template>
+        </ngb-tab>
+        <ngb-tab>
+          <ng-template ngbTabTitle><b>회원 배정</b></ng-template>
+          <ng-template ngbTabContent>
+              <app-assign-clients></app-assign-clients>
+          </ng-template>
+        </ngb-tab>
+        <ngb-tab>
+          <ng-template ngbTabTitle><b>유저 삭제</b></ng-template>
+          <ng-template ngbTabContent>
+              <app-delete-user></app-delete-user>
+          </ng-template>
+        </ngb-tab>
+      </ngb-tabset>
+    </div>
+  </div>
+</div>

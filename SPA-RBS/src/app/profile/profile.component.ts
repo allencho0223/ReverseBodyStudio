@@ -8,6 +8,7 @@ import { NgForm, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { UserService } from '../_services/user.service';
 import { AuthService } from '../_services/auth.service';
 import { ExperienceService } from '../_services/experience.service';
+import { BsDatepickerConfig } from 'ngx-bootstrap';
 
 @Component({
   selector: 'app-profile',
@@ -30,6 +31,7 @@ export class ProfileComponent implements OnInit {
   calledDeleteExpList = false;
 
   expId: any;
+  bsConfig: Partial<BsDatepickerConfig>;
 
   @HostListener('window:beforeunload', ['$event'])
   unloadNotification($event: any) {
@@ -44,6 +46,9 @@ export class ProfileComponent implements OnInit {
     , private experienceService: ExperienceService, private fb: FormBuilder) { }
 
   ngOnInit() {
+    this.bsConfig = {
+      containerClass: 'theme-blue'
+    };
     this.loadUser();
   }
 
@@ -63,8 +68,17 @@ export class ProfileComponent implements OnInit {
   loadInstructor(instructorId: number) {
     this.userService.getInstructor(instructorId).subscribe(instructor => {
       this.instructor = instructor;
+      this.getInstructorExperiences(this.instructor.id);
     }, error => {
       this.alertify.error('데이터를 불러오는 데 실패하였습니다.');
+    });
+  }
+
+  getInstructorExperiences(instructorId: number) {
+    return this.experienceService.getExperiences(instructorId).subscribe(exps => {
+      this.experiences = exps;
+    }, error => {
+      this.alertify.error('강사 경력을 받아올 수 없습니다.');
     });
   }
 
@@ -126,11 +140,13 @@ export class ProfileComponent implements OnInit {
   }
 
   deleteExperience() {
-    return this.experienceService.deleteExperience(this.instructor.id, this.expId).subscribe(() => {
-      window.location.reload();
-      this.alertify.success('경력을 성공적으로 삭제하였습니다.');
-    }, error => {
-      this.alertify.error('경력을 삭제할 수 없습니다.');
+    return this.alertify.confirm('정말로 경력을 삭제하시겠습니까?', () => {
+      this.experienceService.deleteExperience(this.instructor.id, this.expId).subscribe(() => {
+        window.location.reload();
+        this.alertify.success('경력을 성공적으로 삭제하였습니다.');
+      }, error => {
+        this.alertify.error('경력을 삭제할 수 없습니다.');
+      });
     });
   }
 

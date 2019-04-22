@@ -4,7 +4,7 @@ import { AlertifyService } from './alertify.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Symptom } from '../_models/symptom';
 import { catchError } from 'rxjs/operators';
-import { of } from 'rxjs';
+import { of, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -33,6 +33,10 @@ export class SymptomService {
           return of(null);
         })
       );
+  }
+
+  getSymptoms(clientId: number): Observable<Symptom> {
+    return this.http.get<Symptom>(this.baseUrl + clientId + '/symptoms');
   }
 
 }

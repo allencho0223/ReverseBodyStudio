@@ -4,11 +4,13 @@ using System.Threading.Tasks;
 using API.RBS.Data;
 using API.RBS.Dtos;
 using API.RBS.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace API.RBS.Controllers
 {
+    [AllowAnonymous]
     [Route("api/users/instructors/{instructorId}/[controller]")]
     [ApiController]
     public class ExperiencesController : ControllerBase

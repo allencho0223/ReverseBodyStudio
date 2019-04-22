@@ -4,4 +4,5 @@ export interface User {
     name: string;
     imagePath: string;
     userType: string;
+    roles?: string[];
 }

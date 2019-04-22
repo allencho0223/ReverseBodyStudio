@@ -23,12 +23,15 @@ export const appRoutes: Routes = [
     { path: 'programmes', component: ProgrammesComponent },
     { path: 'contact', component: ContactComponent },
     // /:id specifies route parameter
-    { path: 'profile', component: ProfileComponent, resolve: { user: ProfileResolver}, canDeactivate: [PreventUnsavedChanges] },
-    { path: 'manage-users', component: ManageUsersComponent, resolve: { user: ProfileResolver} },
+    { path: 'profile', component: ProfileComponent, resolve: { user: ProfileResolver}
+        , canDeactivate: [PreventUnsavedChanges] },
+    { path: 'manage-users', component: ManageUsersComponent
+        , resolve: { user: ProfileResolver}, data: { roles: ['Admin'] } },
     { path: 'manage-clients', component: ManageClientsComponent, resolve: { user: ProfileResolver} },
     { path: 'status', component: StatusComponent, resolve: { user: ProfileResolver} },
     { path: 'register', component: AuthRegisterComponent },
     { path: 'login', component: AuthLoginComponent },
+
 
     // **: wildcard
     // What this does is that if path doesn't fully match, it will redirect to home

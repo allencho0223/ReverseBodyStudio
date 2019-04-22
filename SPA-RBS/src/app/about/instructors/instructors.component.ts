@@ -23,6 +23,7 @@ export class InstructorsComponent implements OnInit {
   loadInstructors() {
     return this.instructorService.getInstructors().subscribe((instructors: Instructor[]) => {
       this.instructors = instructors;
+      console.log(this.instructors);
     }, error => {
       this.alertify.error(error);
     });

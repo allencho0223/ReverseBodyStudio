@@ -13,7 +13,6 @@ using Microsoft.Extensions.Options;
 
 namespace API.RBS.Controllers
 {
-    [Authorize]
     [Route("api/users/clients/{clientId}/[controller]")]
     [ApiController]
     public class ClientImagesController : ControllerBase

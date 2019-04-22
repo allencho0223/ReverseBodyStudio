@@ -13,7 +13,7 @@ using Microsoft.EntityFrameworkCore;
 namespace API.RBS.Controllers
 {
     // This only allows the controller to authorised users
-    // [Authorize]
+    [AllowAnonymous]
     [Route("api/[controller]")]
     [ApiController]
     public class UsersController : ControllerBase
@@ -96,8 +96,8 @@ namespace API.RBS.Controllers
             // That's attempting to access this route and doing an HttpPut
             // And If the id of the path the user is trying to access doesn't match what's in the token,
             // Then we're going to return Unauthorized()
-            if (id != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
-                return Unauthorized();
+            // if (id != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+            //     return Unauthorized();
 
             var clientFromRepo = await _repo.GetClient(id);
 
@@ -107,6 +107,22 @@ namespace API.RBS.Controllers
                 return NoContent();
 
             throw new Exception("업데이트에 실패하였습니다");
+        }
+
+        [HttpDelete("{userId}")]
+        public async Task<IActionResult> DeleteUser(int userId)
+        {
+            var user = await _context.Users.FindAsync(userId);
+
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            _context.Users.Remove(user);
+            await _context.SaveChangesAsync();
+
+            return NoContent();
         }
 
 

@@ -1,0 +1,87 @@
+<div class="container mt-4" style="padding-left: 0;">
+  <div class="row mb-4">
+    <div class="col-lg-12">
+      <h2 class="subheading-font">유저 삭제</h2>
+    </div>
+  </div>
+  
+  <form #searchForm="ngForm" (ngSubmit)="searchUser()" class="mb-4">
+    <div class="form-row">
+      <div class="col-lg-8">
+        <i class="fa fa-search search-icon"></i>
+        <input type="text" class="form-control search-input"
+          name="userSearch" [(ngModel)]="userValue" placeholder="아이디를 입력하세요.">
+      </div>
+      <div class="col-lg-4">
+        <button class="btn btn-lg btn-primary bg-primary" type="submit">검색</button>
+      </div>
+    </div>
+  </form>
+
+  <div *ngIf="isUserSearched">
+    <div class="row">
+      <div class="col-lg-4">
+        <p class="bodytitle-font">아이디</p>
+      </div>
+      <div class="col-lg-8">
+        <p class="bodytitle-font">{{ searchedUser.userName }}</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-4">
+        <p class="bodytitle-font">이름</p>
+      </div>
+      <div class="col-lg-8">
+        <p class="bodytitle-font">{{ searchedUser.name }}</p>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-4">
+        <p class="bodytitle-font">연락처</p>
+      </div>
+      <div class="col-lg-8">
+        <p class="bodytitle-font">{{ searchedUser.phone }}</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-4">
+        <p class="bodytitle-font">주소</p>
+      </div>
+      <div class="col-lg-8">
+        <p class="bodytitle-font">{{ searchedUser.address }}</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-4">
+        <p class="bodytitle-font">운동목적</p>
+      </div>
+      <div class="col-lg-8">
+        <p class="bodytitle-font">{{ searchedUser.purpose }}</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-12">
+        <table class="table">
+          <tr>
+            <th class="text-center content-font">증상</th>
+            <th class="text-center content-font">디테일</th>
+          </tr>
+          <tr *ngFor="let symptom of searchedUser.symptoms">
+            <td class="text-center content-font">{{ symptom.symptomName }}</td>
+            <td class="text-center content-font">{{ symptom.details }}</td>
+          </tr>
+        </table>
+      </div>
+      <!-- <div class="col-lg-4">
+        <p class="bodytitle-font">증상</p>
+      </div>
+      <div class="col-lg-8">
+        <p class="bodytitle-font" *ngFor="let symptom of searchedUser.symptoms">{{ symptom.symptomName }}</p>
+      </div> -->
+    </div>
+    <button class="btn btn-lg btn-primary bg-primary mr-3" (click)="removeUser()">삭제</button>
+    <button class="btn btn-lg btn-danger bg-danger">취소</button>
+  </div>
+
+</div>

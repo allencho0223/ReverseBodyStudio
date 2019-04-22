@@ -31,36 +31,18 @@
             {{ authService.decodedToken?.unique_name | titlecase }}
           </a>
           <div class="dropdown-menu" *dropdownMenu>
-            <a class="dropdown-item" [routerLink]="['/manage-users']"><i class="fa fa-edit"></i>&nbsp;Manage
+            <a *appHasRole="['Admin']" class="dropdown-item" [routerLink]="['/manage-users']"><i class="fa fa-edit"></i>&nbsp;Manage
               Users</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" [routerLink]="['/manage-clients']"><i class="fa fa-edit"></i>&nbsp;Manage
+            <div *appHasRole="['Admin']" class="dropdown-divider"></div>
+
+            <a *appHasRole="['Instructor']" class="dropdown-item" [routerLink]="['/manage-clients']"><i class="fa fa-edit"></i>&nbsp;Manage
               Clients</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" [routerLink]="['/status']"><i class="fa fa-edit"></i>&nbsp;My Status</a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" [routerLink]="['/profile']"><i class="fa fa-edit"></i>&nbsp;Edit Profile</a>
-              <div class="dropdown-divider"></div>
-            <!-- <ng-container *ngIf="currentUser.userName.includes('admin'); else instructor">
-              <a class="dropdown-item" [routerLink]="['/manage-users']"><i class="fa fa-edit"></i>&nbsp;Manage
-                Instructors</a>
-              <div class="dropdown-divider"></div>
-            </ng-container>
+            <div *appHasRole="['Instructor']" class="dropdown-divider"></div>
 
-            <ng-template #instructor>
-              <ng-container *ngIf="currentUser.userName.includes('rbs_'); else client">
-                <a class="dropdown-item" [routerLink]="['/manage-clients']"><i class="fa fa-edit"></i>&nbsp;Manage
-                  Clients</a>
-                <div class="dropdown-divider"></div>
-              </ng-container>
-            </ng-template>
-
-            <ng-template #client>
-              <a class="dropdown-item" [routerLink]="['/status']"><i class="fa fa-edit"></i>&nbsp;My Status</a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" [routerLink]="['/profile']"><i class="fa fa-edit"></i>&nbsp;Edit Profile</a>
-              <div class="dropdown-divider"></div>
-            </ng-template> -->
+            <a *appHasRole="['Client']" class="dropdown-item" [routerLink]="['/status']"><i class="fa fa-edit"></i>&nbsp;My Status</a>
+              <div *appHasRole="['Client']" class="dropdown-divider"></div>
+              <a *appHasRole="['Instructor', 'Client']" class="dropdown-item" [routerLink]="['/profile']"><i class="fa fa-edit"></i>&nbsp;Edit Profile</a>
+              <div *appHasRole="['Instructor', 'Client']" class="dropdown-divider"></div>
             
             <a id="logout-btn" class="dropdown-item" (click)="logout()"><i class="fa fa-sign-out"></i>&nbsp;Logout</a>
           </div>
@@ -95,11 +77,10 @@
 
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" [routerLink]="['/register']"><i
-                class="fa fa-user-plus"></i>&nbsp;&nbsp;Register</a>
+                class="fa fa-user-plus">
+              </i>&nbsp;&nbsp;Register
+            </a>
 
-
-            <!-- <a id="logoutBtn" class="dropdown-item" [routerLink]="['/login']"><i
-                class="fa fa-sign-in"></i>&nbsp;&nbsp;&nbsp;Login</a> -->
           </div>
         </div>
       </div>

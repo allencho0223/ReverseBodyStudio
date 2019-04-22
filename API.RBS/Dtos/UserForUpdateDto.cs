@@ -10,6 +10,7 @@ namespace API.RBS.Dtos
         public int Height { get; set; }
         public int Weight { get; set; }
         public string Purpose { get; set; }
+        public int InstructorId { get; set; }
         
     }
 }

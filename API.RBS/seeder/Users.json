@@ -5,7 +5,7 @@
 		"name": "Admin",
 		"password": "password",
 		"imagePath": "assets/img/profiles/anonymous.jpg",
-		"userType": "User"
+		"userType": "Admin"
 	}
 	
 ]

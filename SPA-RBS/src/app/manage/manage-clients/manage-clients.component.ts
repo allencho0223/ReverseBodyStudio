@@ -39,16 +39,16 @@ export class ManageClientsComponent implements OnInit {
   instructor: any;
 
   client: any;
-  clients: any;
+  clients = new Array();
 
   programmes: any;
   programme: any = {};
   programmeList: any;
-  assignedProgrammes: any = {};
+  assignedProgrammes = new Array();
   symptoms: any;
   symptom: any = {};
   symptomList: any;
-  assignedSymptoms: any = {};
+  assignedSymptoms = new Array();
 
   clientImages: any;
 
@@ -60,25 +60,39 @@ export class ManageClientsComponent implements OnInit {
     this.bsConfig = {
       containerClass: 'theme-blue'
     };
-    this.getInstructor();
+    this.getUser();
   }
 
 
   // Select a client
-  getInstructor() {
+  getUser() {
     return this.route.data.subscribe(data => {
       this.user = data['user'];
-      this.getClients(this.user.id);
+      this.getInstructor(this.user.id);
     }, error => {
       this.alertify.error('데이터를 불러오는 데 실패하였습니다.');
     });
   }
 
-  getClients(instructorId: number) {
+  getInstructor(instructorId: number) {
     return this.userService.getInstructor(instructorId).subscribe(instructor => {
       this.instructor = instructor;
     }, error => {
-      this.alertify.error('존재하지 않는 사용자입니다.');
+      this.alertify.error('강사를 불러올 수 없습니다.');
+    }, () => {
+      this.getClients(this.instructor.id);
+    });
+  }
+
+  getClients(instructorId: number) {
+    return this.userService.getClients().subscribe(clients => {
+      for (let i = 0; i < clients.length; i++) {
+        if (clients[i].instructorId === this.instructor.id) {
+          this.clients.push(clients[i]);
+        }
+      }
+    }, error => {
+      this.alertify.error('회원 목록을 받아올 수 없습니다.');
     });
   }
 
@@ -90,17 +104,11 @@ export class ManageClientsComponent implements OnInit {
     } else {
       this.clientNotChosen = false;
       const clientName = event;
-      return this.http.get(this.baseUrl + 'clients').subscribe(response => {
-        this.clients = response;
-      }, error => {
-        this.alertify.error('회원 목록을 받아올 수 없습니다.');
-      }, () => {
-        for (const value of this.clients) {
-          if (value.name === clientName) {
-            this.client = value;
-          }
+      for (const value of this.clients) {
+        if (value.name === clientName) {
+          this.client = value;
         }
-      });
+      }
     }
   }
 
@@ -201,7 +209,8 @@ export class ManageClientsComponent implements OnInit {
   }
 
   deleteSymptom() {
-    return this.symptomService.deleteSymptom(this.client.id, this.symptom.id)
+    return this.alertify.confirm('정말로 증상을 삭제하시겠습니까?', () => {
+      this.symptomService.deleteSymptom(this.client.id, this.symptom.id)
       .subscribe(() => {
         this.alertify.success('증상 삭제에 성공했습니다.');
         this.cancelButton();
@@ -209,6 +218,7 @@ export class ManageClientsComponent implements OnInit {
       }, error => {
         this.alertify.error('증상 삭제에 실패하였습니다');
       });
+    });
   }
 
   // Delete a programme
@@ -260,7 +270,8 @@ export class ManageClientsComponent implements OnInit {
   }
 
   deleteProgramme() {
-    return this.programmeService.deleteProgramme(this.client.id, this.programme.id)
+    return this.alertify.confirm('정말로 프로그램을 삭제하시겠습니까?', () => {
+      this.programmeService.deleteProgramme(this.client.id, this.programme.id)
       .subscribe(() => {
         this.alertify.success('프로그램 삭제에 성공했습니다.');
         this.cancelButton();
@@ -268,6 +279,7 @@ export class ManageClientsComponent implements OnInit {
       }, error => {
         this.alertify.error('프로그램 삭제에 실패하였습니다');
       });
+    });
   }
 
   cancelButton() {

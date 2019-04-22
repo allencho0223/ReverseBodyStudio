@@ -25,6 +25,10 @@ export class ExperienceService {
       );
   }
 
+  getExperiences(instructorId: number) {
+    return this.http.get(this.baseUrl + instructorId + '/experiences');
+  }
+
   deleteExperience(instructorId: number, experienceId: number) {
     return this.http
       .delete(this.baseUrl + instructorId + '/experiences/' + experienceId)

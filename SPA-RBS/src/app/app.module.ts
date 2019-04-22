@@ -22,26 +22,29 @@ import { FooterComponent } from './footer/footer.component';
 import { ProfileComponent } from './profile/profile.component';
 import { ManageClientsComponent } from './manage/manage-clients/manage-clients.component';
 import { StatusComponent } from './status/status.component';
-
+import { RolesModalComponent } from './manage/manage-users/roles-modal/roles-modal.component';
+import { AssignClientsComponent } from './manage/manage-users/assign-clients/assign-clients.component';
+import { EditRolesComponent } from './manage/manage-users/edit-roles/edit-roles.component';
+import { DeleteUserComponent } from './manage/manage-users/delete-user/delete-user.component';
+import { ManageUsersComponent } from './manage/manage-users/manage-users.component';
 
 import { ErrorInterceptorProvider } from './_services/error.interceptor';
-
 import { AuthService } from './_services/auth.service';
 import { AlertifyService } from './_services/alertify.service';
 import { UserService } from './_services/user.service';
 import { ProgrammeService } from './_services/programme.service';
 import { SymptomService } from './_services/symptom.service';
+import { ExperienceService } from './_services/experience.service';
+import { AdminService } from './_services/admin.service';
 
 import { appRoutes } from './routes';
 
 import { AuthGuard } from './_guards/auth.guard';
+import { PreventUnsavedChanges } from './_guards/prevent-unsaved-changes.guard';
 
 import { ProfileResolver } from './_resolvers/profile.resolver';
-import { PreventUnsavedChanges } from './_guards/prevent-unsaved-changes.guard';
-import { ExperienceService } from './_services/experience.service';
-import { ManageUsersComponent } from './manage/manage-users/manage-users.component';
 
-
+import { HasRoleDirective } from './_directives/hasRole.directive';
 
 export function tokenGetter() {
    return localStorage.getItem('token');
@@ -63,7 +66,12 @@ export function tokenGetter() {
       ProfileComponent,
       ManageUsersComponent,
       ManageClientsComponent,
-      StatusComponent
+      RolesModalComponent,
+      AssignClientsComponent,
+      EditRolesComponent,
+      StatusComponent,
+      DeleteUserComponent,
+      HasRoleDirective
    ],
    imports: [
       BrowserModule,
@@ -95,7 +103,11 @@ export function tokenGetter() {
       PreventUnsavedChanges,
       ProgrammeService,
       SymptomService,
-      ExperienceService
+      ExperienceService,
+      AdminService
+   ],
+   entryComponents: [
+      RolesModalComponent
    ],
    bootstrap: [
       AppComponent

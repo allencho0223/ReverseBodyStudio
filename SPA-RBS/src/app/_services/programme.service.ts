@@ -36,4 +36,8 @@ export class ProgrammeService {
       );
   }
 
+  getProgrammes(clientId: number): Observable<Programme> {
+    return this.http.get<Programme>(this.baseUrl + clientId + '/programmes');
+  }
+
 }

@@ -2,12 +2,12 @@
   <div class="row">
     <div class="col-lg-6 offset-lg-6">
       <h1 class="heading-font">Manage Clients</h1>
-      <h2 class="subheading-font mb-4">{{ instructor.name }} 선생님</h2>
+      <h2 class="subheading-font mb-4">{{ user.name }} 선생님</h2>
 
       <!-- Select a client -->
       <select class="mb-4" name="allocatedClients" (change)="selectClient($event.target.value)">
         <option [value]="clientNotChosen">회원을 선택하세요</option>
-        <option *ngFor="let client of instructor.clients" value="{{ client.name }}">{{ client.name }}</option>
+        <option *ngFor="let client of clients" value="{{ client.name }}">{{ client.name }}</option>
       </select>
 
       <!-- Display chosen client details -->
@@ -125,7 +125,7 @@
             rows="5" [(ngModel)]="programme.description"></textarea>
         </div>
         <div class="form-group">
-          <label class="bodytitle-font" for="programmeSessionTime">날짜 & 시간</label>
+          <label class="bodytitle-font" for="programmeSessionTime">날짜</label>
           <input placement="bottom left" container="" type="text" name="progSessionTime" id="programmeSessionTime" class="form-control"
           [ngModel]="programme.sessionTime | date: 'mediumDate'" bsDatepicker [bsConfig]="bsConfig">
           

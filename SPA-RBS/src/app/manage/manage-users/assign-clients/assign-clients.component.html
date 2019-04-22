@@ -1,0 +1,74 @@
+<div class="container mt-4">
+  <div class="row">
+    <h2 class="subheading-font">담당 선생님&nbsp;&nbsp;&nbsp;</h2>
+    <select class="mb-4 mt-1" (change)="selectInstructor($event.target.value)">
+      <option value="None">강사를 선택해 주세요</option>
+      <option *ngFor="let instructor of instructors" value="{{ instructor.id }}">{{ instructor.name }}</option>
+    </select>
+    <div *ngIf="isInstructorSelected">
+      <div class="row">
+        <div class="col-lg-4">
+          <p class="bodytitle-font">이름</p>
+        </div>
+        <div class="col-lg-8">
+          <p class="bodytitle-font">{{ selectedInstructor.name }}</p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-4">
+          <p class="bodytitle-font">경력</p>
+        </div>
+        <div class="col-lg-8">
+          <p class="bodytitle-font" *ngFor="let experience of experiences">
+            {{ experience.description }}
+          </p>
+        </div>
+      </div>
+
+      <h2 style="display: inline-block" class="subheading-font">회원&nbsp;&nbsp;&nbsp;</h2>
+      <select class="mb-4 mt-1" (change)="selectClient($event.target.value)">
+        <option value="None">회원을 선택해 주세요</option>
+        <option *ngFor="let client of unAssignedClients" value="{{ client.id }}">{{ client.name }}</option>
+      </select>
+
+      <div *ngIf="isClientSelected">
+        <div class="row">
+          <div class="col-lg-4">
+            <p class="bodytitle-font">이름</p>
+          </div>
+          <div class="col-lg-8">
+            <p class="bodytitle-font">{{ selectedClient.name }}</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-4">
+            <p class="bodytitle-font">나이</p>
+          </div>
+          <div class="col-lg-8">
+            <p class="bodytitle-font">{{ selectedClient.age }}</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-4">
+            <p class="bodytitle-font">키</p>
+          </div>
+          <div class="col-lg-8">
+            <p class="bodytitle-font">{{ selectedClient.height }}</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-4">
+            <p class="bodytitle-font">몸무게</p>
+          </div>
+          <div class="col-lg-8">
+            <p class="bodytitle-font">{{ selectedClient.weight }}</p>
+          </div>
+        </div>
+        <button class="btn btn-lg btn-primary bg-primary mr-3" (click)="assignClient(selectedInstructor.id)">배정</button>
+        <button class="btn btn-lg btn-danger bg-danger" (click)="cancelAssign()">취소</button>
+      </div>
+    </div>
+  </div>
+
+</div>

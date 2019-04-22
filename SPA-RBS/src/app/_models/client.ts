@@ -12,6 +12,7 @@ export interface Client extends User {
     height: string;
     weight: string;
     purpose: string;
+    instructorId: number;
     symptoms: Symptom[];
     programmes: Programme[];
     clientImages: ClientImage[];

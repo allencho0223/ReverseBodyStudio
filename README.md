@@ -1,5 +1,7 @@
 # ReverseBodyStudio
 
+Intro video of the app: https://www.youtube.com/watch?v=reV-o3p8lZs&t=22s
+
 ![](SPA-RBS/src/assets/img/logo/logo_2.JPG)
 
 Designed and Developed by Allen Cho.

@@ -3,6 +3,7 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { AlertifyService } from 'src/app/_services/alertify.service';
 import { UserService } from 'src/app/_services/user.service';
 import { Instructor } from 'src/app/_models/instructor';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-instructors',
@@ -12,7 +13,7 @@ import { Instructor } from 'src/app/_models/instructor';
 export class InstructorsComponent implements OnInit {
   modalRef: BsModalRef;
   instructors: any;
-  baseUrl = 'http://localhost:5000/api/users/';
+  baseUrl = environment.apiUrl + 'users/';
   constructor(private modalService: BsModalService, private instructorService: UserService
     , private alertify: AlertifyService) { }
 

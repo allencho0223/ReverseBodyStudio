@@ -146,7 +146,7 @@
 
       <!-- Delete programme select option tag -->
       <div>
-        <select *ngIf="deleteProgrammeClicked && !addProgrammeClicked && !photosHidden" class="mb-4"
+        <select *ngIf="deleteProgrammeClicked && !addProgrammeClicked" class="mb-4"
           name="addedProgrammes" (change)="selectProgramme($event.target.value)">
           <option class="none">프로그램을 선택하세요</option>
           <option *ngFor="let programme of assignedProgrammes" value="{{ programme.programmeName }}">
